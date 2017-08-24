@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.zzd.mapper.ContentAttachmentsMapper" >
+  <resultMap id="BaseResultMap" type="org.zzd.pojo.ContentAttachmentsKey" >
+    <id column="content_id_" property="contentId" jdbcType="BIGINT" />
+    <id column="attachments_id_" property="attachmentsId" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    content_id_, attachments_id_
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.zzd.pojo.ContentAttachmentsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from content_attachments
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="org.zzd.pojo.ContentAttachmentsKey" >
+    delete from content_attachments
+    where content_id_ = #{contentId,jdbcType=BIGINT}
+      and attachments_id_ = #{attachmentsId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.zzd.pojo.ContentAttachmentsExample" >
+    delete from content_attachments
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.zzd.pojo.ContentAttachmentsKey" >
+    insert into content_attachments (content_id_, attachments_id_)
+    values (#{contentId,jdbcType=BIGINT}, #{attachmentsId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="org.zzd.pojo.ContentAttachmentsKey" >
+    insert into content_attachments
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="contentId != null" >
+        content_id_,
+      </if>
+      <if test="attachmentsId != null" >
+        attachments_id_,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="contentId != null" >
+        #{contentId,jdbcType=BIGINT},
+      </if>
+      <if test="attachmentsId != null" >
+        #{attachmentsId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.zzd.pojo.ContentAttachmentsExample" resultType="java.lang.Integer" >
+    select count(*) from content_attachments
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update content_attachments
+    <set >
+      <if test="record.contentId != null" >
+        content_id_ = #{record.contentId,jdbcType=BIGINT},
+      </if>
+      <if test="record.attachmentsId != null" >
+        attachments_id_ = #{record.attachmentsId,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update content_attachments
+    set content_id_ = #{record.contentId,jdbcType=BIGINT},
+      attachments_id_ = #{record.attachmentsId,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

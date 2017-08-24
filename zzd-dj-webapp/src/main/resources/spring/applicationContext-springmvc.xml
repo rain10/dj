@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo" 
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.2.xsd 
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.2.xsd
+        http://code.alibabatech.com/schema/dubbo
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
+	
+	<!-- 自动扫描 -->
+	<context:component-scan base-package="org.zzd">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+	</context:component-scan>
+	
+	
+	<mvc:annotation-driven />
+<!-- 	<context:property-placeholder location="classpath:*.properties"/> -->
+	
+	
+	<!-- 静态访问资源 此mapping配置需跟web.xml中的contextResourcePath参数值保持一致 -->
+     <mvc:resources mapping="/admin/**" location="admin/" />
+     <mvc:resources mapping="/ueditor/**" location="ueditor/" />
+     
+     
+     
+     <mvc:interceptors>
+		<mvc:interceptor>
+				<mvc:mapping path="/system/**"/>
+				<mvc:mapping path="/app/**"/>
+				<mvc:mapping path="/container"/>
+		         <mvc:exclude-mapping path="/**/*.css"/>
+		         <mvc:exclude-mapping path="/**/*.js"/>
+		         <mvc:exclude-mapping path="/**/*.png"/>
+		         <mvc:exclude-mapping path="/**/*.gif"/>
+		         <mvc:exclude-mapping path="/**/*.jpg"/>
+		         <mvc:exclude-mapping path="/**/*.jpeg"/>
+		         <mvc:exclude-mapping path="/**/*login*"/>
+		         <mvc:exclude-mapping path="/**/*logout*"/>
+		         <mvc:exclude-mapping path="/images/upload"/>
+		         <mvc:exclude-mapping path="/content/count"/>
+		         <mvc:exclude-mapping path="/content/type"/>
+		         <mvc:exclude-mapping path="/app/content/load_send.do"/>
+		         <mvc:exclude-mapping path="/app/content/load_send_data.do"/>
+		         <mvc:exclude-mapping path="/meun/delete_quick_meun.do"/>
+		         <mvc:exclude-mapping path="/meun/load_quick_meun.do"/>
+		         <mvc:exclude-mapping path="/app/content/updata"/>
+		         <mvc:exclude-mapping path="/meun/quick_meun.do"/>
+		         <mvc:exclude-mapping path="/meun/quick_meun_check.do"/>
+		         <mvc:exclude-mapping path="/system/index_statistics"/>
+		          <mvc:exclude-mapping path="/exam/statistics"/>
+		         <mvc:exclude-mapping path="/ueditor/jsp/**"/>
+				<bean class="org.zzd.interceptor.Interceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
+    
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver" />
+    
+    <!--对转向页面的路径解析。prefix：前缀， suffix：后缀 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    	<property name="prefix" value="/WEB-INF/views/" />
+    	<property name="suffix" value=".jsp" />
+    </bean>
+
+<!--     限制文件上传大小 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="100000000"/>
+    </bean>
+    
+
+</beans>

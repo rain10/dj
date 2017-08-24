@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.zzd.mapper.ContentCommentsMapper" >
+  <resultMap id="BaseResultMap" type="org.zzd.pojo.ContentComments" >
+    <id column="id_" property="id" jdbcType="BIGINT" />
+    <result column="content_id_" property="contentId" jdbcType="BIGINT" />
+    <result column="user_id_" property="userId" jdbcType="BIGINT" />
+    <result column="op_time_" property="opTime" jdbcType="TIMESTAMP" />
+    <result column="auditor_" property="auditor" jdbcType="VARCHAR" />
+    <result column="audit_time_" property="auditTime" jdbcType="TIMESTAMP" />
+    <result column="audit_" property="audit" jdbcType="INTEGER" />
+    <result column="enabled_" property="enabled" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="org.zzd.pojo.ContentCommentsWithBLOBs" extends="BaseResultMap" >
+    <result column="comment_filter_" property="commentFilter" jdbcType="LONGVARCHAR" />
+    <result column="comment_" property="comment" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id_, content_id_, user_id_, op_time_, auditor_, audit_time_, audit_, enabled_
+  </sql>
+  <sql id="Blob_Column_List" >
+    comment_filter_, comment_
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="org.zzd.pojo.ContentCommentsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from content_comments
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.zzd.pojo.ContentCommentsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from content_comments
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from content_comments
+    where id_ = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from content_comments
+    where id_ = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.zzd.pojo.ContentCommentsExample" >
+    delete from content_comments
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.zzd.pojo.ContentCommentsWithBLOBs" >
+    insert into content_comments (id_, content_id_, user_id_, 
+      op_time_, auditor_, audit_time_, 
+      audit_, enabled_, comment_filter_, 
+      comment_)
+    values (#{id,jdbcType=BIGINT}, #{contentId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, 
+      #{opTime,jdbcType=TIMESTAMP}, #{auditor,jdbcType=VARCHAR}, #{auditTime,jdbcType=TIMESTAMP}, 
+      #{audit,jdbcType=INTEGER}, #{enabled,jdbcType=INTEGER}, #{commentFilter,jdbcType=LONGVARCHAR}, 
+      #{comment,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.zzd.pojo.ContentCommentsWithBLOBs" >
+    insert into content_comments
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id_,
+      </if>
+      <if test="contentId != null" >
+        content_id_,
+      </if>
+      <if test="userId != null" >
+        user_id_,
+      </if>
+      <if test="opTime != null" >
+        op_time_,
+      </if>
+      <if test="auditor != null" >
+        auditor_,
+      </if>
+      <if test="auditTime != null" >
+        audit_time_,
+      </if>
+      <if test="audit != null" >
+        audit_,
+      </if>
+      <if test="enabled != null" >
+        enabled_,
+      </if>
+      <if test="commentFilter != null" >
+        comment_filter_,
+      </if>
+      <if test="comment != null" >
+        comment_,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="contentId != null" >
+        #{contentId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="opTime != null" >
+        #{opTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditor != null" >
+        #{auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="auditTime != null" >
+        #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="audit != null" >
+        #{audit,jdbcType=INTEGER},
+      </if>
+      <if test="enabled != null" >
+        #{enabled,jdbcType=INTEGER},
+      </if>
+      <if test="commentFilter != null" >
+        #{commentFilter,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.zzd.pojo.ContentCommentsExample" resultType="java.lang.Integer" >
+    select count(*) from content_comments
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update content_comments
+    <set >
+      <if test="record.id != null" >
+        id_ = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.contentId != null" >
+        content_id_ = #{record.contentId,jdbcType=BIGINT},
+      </if>
+      <if test="record.userId != null" >
+        user_id_ = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.opTime != null" >
+        op_time_ = #{record.opTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.auditor != null" >
+        auditor_ = #{record.auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.auditTime != null" >
+        audit_time_ = #{record.auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.audit != null" >
+        audit_ = #{record.audit,jdbcType=INTEGER},
+      </if>
+      <if test="record.enabled != null" >
+        enabled_ = #{record.enabled,jdbcType=INTEGER},
+      </if>
+      <if test="record.commentFilter != null" >
+        comment_filter_ = #{record.commentFilter,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.comment != null" >
+        comment_ = #{record.comment,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update content_comments
+    set id_ = #{record.id,jdbcType=BIGINT},
+      content_id_ = #{record.contentId,jdbcType=BIGINT},
+      user_id_ = #{record.userId,jdbcType=BIGINT},
+      op_time_ = #{record.opTime,jdbcType=TIMESTAMP},
+      auditor_ = #{record.auditor,jdbcType=VARCHAR},
+      audit_time_ = #{record.auditTime,jdbcType=TIMESTAMP},
+      audit_ = #{record.audit,jdbcType=INTEGER},
+      enabled_ = #{record.enabled,jdbcType=INTEGER},
+      comment_filter_ = #{record.commentFilter,jdbcType=LONGVARCHAR},
+      comment_ = #{record.comment,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update content_comments
+    set id_ = #{record.id,jdbcType=BIGINT},
+      content_id_ = #{record.contentId,jdbcType=BIGINT},
+      user_id_ = #{record.userId,jdbcType=BIGINT},
+      op_time_ = #{record.opTime,jdbcType=TIMESTAMP},
+      auditor_ = #{record.auditor,jdbcType=VARCHAR},
+      audit_time_ = #{record.auditTime,jdbcType=TIMESTAMP},
+      audit_ = #{record.audit,jdbcType=INTEGER},
+      enabled_ = #{record.enabled,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.zzd.pojo.ContentCommentsWithBLOBs" >
+    update content_comments
+    <set >
+      <if test="contentId != null" >
+        content_id_ = #{contentId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        user_id_ = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="opTime != null" >
+        op_time_ = #{opTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditor != null" >
+        auditor_ = #{auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="auditTime != null" >
+        audit_time_ = #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="audit != null" >
+        audit_ = #{audit,jdbcType=INTEGER},
+      </if>
+      <if test="enabled != null" >
+        enabled_ = #{enabled,jdbcType=INTEGER},
+      </if>
+      <if test="commentFilter != null" >
+        comment_filter_ = #{commentFilter,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="comment != null" >
+        comment_ = #{comment,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id_ = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="org.zzd.pojo.ContentCommentsWithBLOBs" >
+    update content_comments
+    set content_id_ = #{contentId,jdbcType=BIGINT},
+      user_id_ = #{userId,jdbcType=BIGINT},
+      op_time_ = #{opTime,jdbcType=TIMESTAMP},
+      auditor_ = #{auditor,jdbcType=VARCHAR},
+      audit_time_ = #{auditTime,jdbcType=TIMESTAMP},
+      audit_ = #{audit,jdbcType=INTEGER},
+      enabled_ = #{enabled,jdbcType=INTEGER},
+      comment_filter_ = #{commentFilter,jdbcType=LONGVARCHAR},
+      comment_ = #{comment,jdbcType=LONGVARCHAR}
+    where id_ = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.zzd.pojo.ContentComments" >
+    update content_comments
+    set content_id_ = #{contentId,jdbcType=BIGINT},
+      user_id_ = #{userId,jdbcType=BIGINT},
+      op_time_ = #{opTime,jdbcType=TIMESTAMP},
+      auditor_ = #{auditor,jdbcType=VARCHAR},
+      audit_time_ = #{auditTime,jdbcType=TIMESTAMP},
+      audit_ = #{audit,jdbcType=INTEGER},
+      enabled_ = #{enabled,jdbcType=INTEGER}
+    where id_ = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

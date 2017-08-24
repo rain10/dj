@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.zzd.mapper.SysUserQuickMapper" >
+  <resultMap id="BaseResultMap" type="org.zzd.pojo.SysUserQuick" >
+    <id column="USER_ID_" property="userId" jdbcType="DECIMAL" />
+    <id column="RESOURCE_ID_" property="resourceId" jdbcType="DECIMAL" />
+    <result column="DATE_" property="date" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    USER_ID_, RESOURCE_ID_, DATE_
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.zzd.pojo.SysUserQuickExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_user_quick_
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="org.zzd.pojo.SysUserQuickKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_user_quick_
+    where USER_ID_ = #{userId,jdbcType=DECIMAL}
+      and RESOURCE_ID_ = #{resourceId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="org.zzd.pojo.SysUserQuickKey" >
+    delete from sys_user_quick_
+    where USER_ID_ = #{userId,jdbcType=DECIMAL}
+      and RESOURCE_ID_ = #{resourceId,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.zzd.pojo.SysUserQuickExample" >
+    delete from sys_user_quick_
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.zzd.pojo.SysUserQuick" >
+    insert into sys_user_quick_ (USER_ID_, RESOURCE_ID_, DATE_
+      )
+    values (#{userId,jdbcType=DECIMAL}, #{resourceId,jdbcType=DECIMAL}, #{date,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.zzd.pojo.SysUserQuick" >
+    insert into sys_user_quick_
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        USER_ID_,
+      </if>
+      <if test="resourceId != null" >
+        RESOURCE_ID_,
+      </if>
+      <if test="date != null" >
+        DATE_,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="resourceId != null" >
+        #{resourceId,jdbcType=DECIMAL},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.zzd.pojo.SysUserQuickExample" resultType="java.lang.Integer" >
+    select count(*) from sys_user_quick_
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sys_user_quick_
+    <set >
+      <if test="record.userId != null" >
+        USER_ID_ = #{record.userId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.resourceId != null" >
+        RESOURCE_ID_ = #{record.resourceId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.date != null" >
+        DATE_ = #{record.date,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sys_user_quick_
+    set USER_ID_ = #{record.userId,jdbcType=DECIMAL},
+      RESOURCE_ID_ = #{record.resourceId,jdbcType=DECIMAL},
+      DATE_ = #{record.date,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.zzd.pojo.SysUserQuick" >
+    update sys_user_quick_
+    <set >
+      <if test="date != null" >
+        DATE_ = #{date,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where USER_ID_ = #{userId,jdbcType=DECIMAL}
+      and RESOURCE_ID_ = #{resourceId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.zzd.pojo.SysUserQuick" >
+    update sys_user_quick_
+    set DATE_ = #{date,jdbcType=TIMESTAMP}
+    where USER_ID_ = #{userId,jdbcType=DECIMAL}
+      and RESOURCE_ID_ = #{resourceId,jdbcType=DECIMAL}
+  </update>
+</mapper>

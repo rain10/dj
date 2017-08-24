@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.zzd.mapper.MembersMapper" >
+  <resultMap id="BaseResultMap" type="org.zzd.pojo.Members" >
+    <id column="id_" property="id" jdbcType="BIGINT" />
+    <result column="username_" property="username" jdbcType="VARCHAR" />
+    <result column="password_" property="password" jdbcType="VARCHAR" />
+    <result column="nickname_" property="nickname" jdbcType="VARCHAR" />
+    <result column="sex_" property="sex" jdbcType="VARCHAR" />
+    <result column="signature_" property="signature" jdbcType="VARCHAR" />
+    <result column="attachments_id_" property="attachmentsId" jdbcType="BIGINT" />
+    <result column="enabled_" property="enabled" jdbcType="INTEGER" />
+    <result column="register_time_" property="registerTime" jdbcType="TIMESTAMP" />
+    <result column="last_login_time_" property="lastLoginTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id_, username_, password_, nickname_, sex_, signature_, attachments_id_, enabled_, 
+    register_time_, last_login_time_
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.zzd.pojo.MembersExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from members_
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from members_
+    where id_ = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from members_
+    where id_ = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.zzd.pojo.MembersExample" >
+    delete from members_
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.zzd.pojo.Members" >
+    insert into members_ (id_, username_, password_, 
+      nickname_, sex_, signature_, 
+      attachments_id_, enabled_, register_time_, 
+      last_login_time_)
+    values (#{id,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{nickname,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{signature,jdbcType=VARCHAR}, 
+      #{attachmentsId,jdbcType=BIGINT}, #{enabled,jdbcType=INTEGER}, #{registerTime,jdbcType=TIMESTAMP}, 
+      #{lastLoginTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="org.zzd.pojo.Members" >
+    insert into members_
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id_,
+      </if>
+      <if test="username != null" >
+        username_,
+      </if>
+      <if test="password != null" >
+        password_,
+      </if>
+      <if test="nickname != null" >
+        nickname_,
+      </if>
+      <if test="sex != null" >
+        sex_,
+      </if>
+      <if test="signature != null" >
+        signature_,
+      </if>
+      <if test="attachmentsId != null" >
+        attachments_id_,
+      </if>
+      <if test="enabled != null" >
+        enabled_,
+      </if>
+      <if test="registerTime != null" >
+        register_time_,
+      </if>
+      <if test="lastLoginTime != null" >
+        last_login_time_,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="signature != null" >
+        #{signature,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentsId != null" >
+        #{attachmentsId,jdbcType=BIGINT},
+      </if>
+      <if test="enabled != null" >
+        #{enabled,jdbcType=INTEGER},
+      </if>
+      <if test="registerTime != null" >
+        #{registerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginTime != null" >
+        #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.zzd.pojo.MembersExample" resultType="java.lang.Integer" >
+    select count(*) from members_
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update members_
+    <set >
+      <if test="record.id != null" >
+        id_ = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.username != null" >
+        username_ = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null" >
+        password_ = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nickname != null" >
+        nickname_ = #{record.nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null" >
+        sex_ = #{record.sex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signature != null" >
+        signature_ = #{record.signature,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attachmentsId != null" >
+        attachments_id_ = #{record.attachmentsId,jdbcType=BIGINT},
+      </if>
+      <if test="record.enabled != null" >
+        enabled_ = #{record.enabled,jdbcType=INTEGER},
+      </if>
+      <if test="record.registerTime != null" >
+        register_time_ = #{record.registerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastLoginTime != null" >
+        last_login_time_ = #{record.lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update members_
+    set id_ = #{record.id,jdbcType=BIGINT},
+      username_ = #{record.username,jdbcType=VARCHAR},
+      password_ = #{record.password,jdbcType=VARCHAR},
+      nickname_ = #{record.nickname,jdbcType=VARCHAR},
+      sex_ = #{record.sex,jdbcType=VARCHAR},
+      signature_ = #{record.signature,jdbcType=VARCHAR},
+      attachments_id_ = #{record.attachmentsId,jdbcType=BIGINT},
+      enabled_ = #{record.enabled,jdbcType=INTEGER},
+      register_time_ = #{record.registerTime,jdbcType=TIMESTAMP},
+      last_login_time_ = #{record.lastLoginTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.zzd.pojo.Members" >
+    update members_
+    <set >
+      <if test="username != null" >
+        username_ = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password_ = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        nickname_ = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex_ = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="signature != null" >
+        signature_ = #{signature,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentsId != null" >
+        attachments_id_ = #{attachmentsId,jdbcType=BIGINT},
+      </if>
+      <if test="enabled != null" >
+        enabled_ = #{enabled,jdbcType=INTEGER},
+      </if>
+      <if test="registerTime != null" >
+        register_time_ = #{registerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginTime != null" >
+        last_login_time_ = #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id_ = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.zzd.pojo.Members" >
+    update members_
+    set username_ = #{username,jdbcType=VARCHAR},
+      password_ = #{password,jdbcType=VARCHAR},
+      nickname_ = #{nickname,jdbcType=VARCHAR},
+      sex_ = #{sex,jdbcType=VARCHAR},
+      signature_ = #{signature,jdbcType=VARCHAR},
+      attachments_id_ = #{attachmentsId,jdbcType=BIGINT},
+      enabled_ = #{enabled,jdbcType=INTEGER},
+      register_time_ = #{registerTime,jdbcType=TIMESTAMP},
+      last_login_time_ = #{lastLoginTime,jdbcType=TIMESTAMP}
+    where id_ = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

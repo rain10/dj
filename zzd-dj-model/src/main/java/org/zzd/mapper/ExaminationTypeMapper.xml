@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.zzd.mapper.ExaminationTypeMapper" >
+  <resultMap id="BaseResultMap" type="org.zzd.pojo.ExaminationType" >
+    <id column="id_" property="id" jdbcType="BIGINT" />
+    <result column="title_" property="title" jdbcType="VARCHAR" />
+    <result column="manager_" property="manager" jdbcType="VARCHAR" />
+    <result column="manager_time_" property="managerTime" jdbcType="TIMESTAMP" />
+    <result column="enabled" property="enabled" jdbcType="INTEGER" />
+    <result column="orgid_" property="orgid" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id_, title_, manager_, manager_time_, enabled, orgid_
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.zzd.pojo.ExaminationTypeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from examination_type_
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from examination_type_
+    where id_ = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from examination_type_
+    where id_ = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.zzd.pojo.ExaminationTypeExample" >
+    delete from examination_type_
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.zzd.pojo.ExaminationType" useGeneratedKeys="true" keyProperty="id">
+    insert into examination_type_ (id_, title_, manager_, 
+      manager_time_, enabled, orgid_
+      )
+    values (#{id,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{manager,jdbcType=VARCHAR}, 
+      #{managerTime,jdbcType=TIMESTAMP}, #{enabled,jdbcType=INTEGER}, #{orgid,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.zzd.pojo.ExaminationType" >
+    insert into examination_type_
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id_,
+      </if>
+      <if test="title != null" >
+        title_,
+      </if>
+      <if test="manager != null" >
+        manager_,
+      </if>
+      <if test="managerTime != null" >
+        manager_time_,
+      </if>
+      <if test="enabled != null" >
+        enabled,
+      </if>
+      <if test="orgid != null" >
+        orgid_,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="manager != null" >
+        #{manager,jdbcType=VARCHAR},
+      </if>
+      <if test="managerTime != null" >
+        #{managerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enabled != null" >
+        #{enabled,jdbcType=INTEGER},
+      </if>
+      <if test="orgid != null" >
+        #{orgid,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.zzd.pojo.ExaminationTypeExample" resultType="java.lang.Integer" >
+    select count(*) from examination_type_
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update examination_type_
+    <set >
+      <if test="record.id != null" >
+        id_ = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.title != null" >
+        title_ = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.manager != null" >
+        manager_ = #{record.manager,jdbcType=VARCHAR},
+      </if>
+      <if test="record.managerTime != null" >
+        manager_time_ = #{record.managerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.enabled != null" >
+        enabled = #{record.enabled,jdbcType=INTEGER},
+      </if>
+      <if test="record.orgid != null" >
+        orgid_ = #{record.orgid,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update examination_type_
+    set id_ = #{record.id,jdbcType=BIGINT},
+      title_ = #{record.title,jdbcType=VARCHAR},
+      manager_ = #{record.manager,jdbcType=VARCHAR},
+      manager_time_ = #{record.managerTime,jdbcType=TIMESTAMP},
+      enabled = #{record.enabled,jdbcType=INTEGER},
+      orgid_ = #{record.orgid,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.zzd.pojo.ExaminationType" >
+    update examination_type_
+    <set >
+      <if test="title != null" >
+        title_ = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="manager != null" >
+        manager_ = #{manager,jdbcType=VARCHAR},
+      </if>
+      <if test="managerTime != null" >
+        manager_time_ = #{managerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enabled != null" >
+        enabled = #{enabled,jdbcType=INTEGER},
+      </if>
+      <if test="orgid != null" >
+        orgid_ = #{orgid,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id_ = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.zzd.pojo.ExaminationType" >
+    update examination_type_
+    set title_ = #{title,jdbcType=VARCHAR},
+      manager_ = #{manager,jdbcType=VARCHAR},
+      manager_time_ = #{managerTime,jdbcType=TIMESTAMP},
+      enabled = #{enabled,jdbcType=INTEGER},
+      orgid_ = #{orgid,jdbcType=BIGINT}
+    where id_ = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

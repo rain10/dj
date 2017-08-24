@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.zzd.mapper.MemberTestMapper" >
+  <resultMap id="BaseResultMap" type="org.zzd.pojo.MemberTest" >
+    <id column="member_id_" property="memberId" jdbcType="BIGINT" />
+    <id column="test_id_" property="testId" jdbcType="BIGINT" />
+    <result column="time_cost_" property="timeCost" jdbcType="TIMESTAMP" />
+    <result column="score_" property="score" jdbcType="INTEGER" />
+    <result column="state_" property="state" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    member_id_, test_id_, time_cost_, score_, state_
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.zzd.pojo.MemberTestExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from member_test
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="org.zzd.pojo.MemberTestKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from member_test
+    where member_id_ = #{memberId,jdbcType=BIGINT}
+      and test_id_ = #{testId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="org.zzd.pojo.MemberTestKey" >
+    delete from member_test
+    where member_id_ = #{memberId,jdbcType=BIGINT}
+      and test_id_ = #{testId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.zzd.pojo.MemberTestExample" >
+    delete from member_test
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.zzd.pojo.MemberTest" >
+    insert into member_test (member_id_, test_id_, time_cost_, 
+      score_, state_)
+    values (#{memberId,jdbcType=BIGINT}, #{testId,jdbcType=BIGINT}, #{timeCost,jdbcType=TIMESTAMP}, 
+      #{score,jdbcType=INTEGER}, #{state,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="org.zzd.pojo.MemberTest" >
+    insert into member_test
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="memberId != null" >
+        member_id_,
+      </if>
+      <if test="testId != null" >
+        test_id_,
+      </if>
+      <if test="timeCost != null" >
+        time_cost_,
+      </if>
+      <if test="score != null" >
+        score_,
+      </if>
+      <if test="state != null" >
+        state_,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="memberId != null" >
+        #{memberId,jdbcType=BIGINT},
+      </if>
+      <if test="testId != null" >
+        #{testId,jdbcType=BIGINT},
+      </if>
+      <if test="timeCost != null" >
+        #{timeCost,jdbcType=TIMESTAMP},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.zzd.pojo.MemberTestExample" resultType="java.lang.Integer" >
+    select count(*) from member_test
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update member_test
+    <set >
+      <if test="record.memberId != null" >
+        member_id_ = #{record.memberId,jdbcType=BIGINT},
+      </if>
+      <if test="record.testId != null" >
+        test_id_ = #{record.testId,jdbcType=BIGINT},
+      </if>
+      <if test="record.timeCost != null" >
+        time_cost_ = #{record.timeCost,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.score != null" >
+        score_ = #{record.score,jdbcType=INTEGER},
+      </if>
+      <if test="record.state != null" >
+        state_ = #{record.state,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update member_test
+    set member_id_ = #{record.memberId,jdbcType=BIGINT},
+      test_id_ = #{record.testId,jdbcType=BIGINT},
+      time_cost_ = #{record.timeCost,jdbcType=TIMESTAMP},
+      score_ = #{record.score,jdbcType=INTEGER},
+      state_ = #{record.state,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.zzd.pojo.MemberTest" >
+    update member_test
+    <set >
+      <if test="timeCost != null" >
+        time_cost_ = #{timeCost,jdbcType=TIMESTAMP},
+      </if>
+      <if test="score != null" >
+        score_ = #{score,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        state_ = #{state,jdbcType=INTEGER},
+      </if>
+    </set>
+    where member_id_ = #{memberId,jdbcType=BIGINT}
+      and test_id_ = #{testId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.zzd.pojo.MemberTest" >
+    update member_test
+    set time_cost_ = #{timeCost,jdbcType=TIMESTAMP},
+      score_ = #{score,jdbcType=INTEGER},
+      state_ = #{state,jdbcType=INTEGER}
+    where member_id_ = #{memberId,jdbcType=BIGINT}
+      and test_id_ = #{testId,jdbcType=BIGINT}
+  </update>
+</mapper>

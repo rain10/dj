@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.zzd.mapper.SysRoleMapper" >
+  <resultMap id="BaseResultMap" type="org.zzd.pojo.SysRole" >
+    <id column="ID_" property="id" jdbcType="DECIMAL" />
+    <result column="DESCRIPTION_" property="description" jdbcType="VARCHAR" />
+    <result column="ENABLED_" property="enabled" jdbcType="DECIMAL" />
+    <result column="NAME_" property="name" jdbcType="VARCHAR" />
+    <result column="OP_TIME_" property="opTime" jdbcType="TIMESTAMP" />
+    <result column="OPERATOR_" property="operator" jdbcType="VARCHAR" />
+    <result column="SORT_" property="sort" jdbcType="DECIMAL" />
+    <result column="ORGID" property="orgid" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID_, DESCRIPTION_, ENABLED_, NAME_, OP_TIME_, OPERATOR_, SORT_, ORGID
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.zzd.pojo.SysRoleExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_role
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_role
+    where ID_ = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sys_role
+    where ID_ = #{id,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.zzd.pojo.SysRoleExample" >
+    delete from sys_role
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.zzd.pojo.SysRole" >
+    insert into sys_role (ID_, DESCRIPTION_, ENABLED_, 
+      NAME_, OP_TIME_, OPERATOR_, 
+      SORT_, ORGID)
+    values (#{id,jdbcType=DECIMAL}, #{description,jdbcType=VARCHAR}, #{enabled,jdbcType=DECIMAL}, 
+      #{name,jdbcType=VARCHAR}, #{opTime,jdbcType=TIMESTAMP}, #{operator,jdbcType=VARCHAR}, 
+      #{sort,jdbcType=DECIMAL}, #{orgid,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="org.zzd.pojo.SysRole" >
+    insert into sys_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID_,
+      </if>
+      <if test="description != null" >
+        DESCRIPTION_,
+      </if>
+      <if test="enabled != null" >
+        ENABLED_,
+      </if>
+      <if test="name != null" >
+        NAME_,
+      </if>
+      <if test="opTime != null" >
+        OP_TIME_,
+      </if>
+      <if test="operator != null" >
+        OPERATOR_,
+      </if>
+      <if test="sort != null" >
+        SORT_,
+      </if>
+      <if test="orgid != null" >
+        ORGID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null" >
+        #{enabled,jdbcType=DECIMAL},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="opTime != null" >
+        #{opTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=DECIMAL},
+      </if>
+      <if test="orgid != null" >
+        #{orgid,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.zzd.pojo.SysRoleExample" resultType="java.lang.Integer" >
+    select count(*) from sys_role
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sys_role
+    <set >
+      <if test="record.id != null" >
+        ID_ = #{record.id,jdbcType=DECIMAL},
+      </if>
+      <if test="record.description != null" >
+        DESCRIPTION_ = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enabled != null" >
+        ENABLED_ = #{record.enabled,jdbcType=DECIMAL},
+      </if>
+      <if test="record.name != null" >
+        NAME_ = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.opTime != null" >
+        OP_TIME_ = #{record.opTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.operator != null" >
+        OPERATOR_ = #{record.operator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sort != null" >
+        SORT_ = #{record.sort,jdbcType=DECIMAL},
+      </if>
+      <if test="record.orgid != null" >
+        ORGID = #{record.orgid,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sys_role
+    set ID_ = #{record.id,jdbcType=DECIMAL},
+      DESCRIPTION_ = #{record.description,jdbcType=VARCHAR},
+      ENABLED_ = #{record.enabled,jdbcType=DECIMAL},
+      NAME_ = #{record.name,jdbcType=VARCHAR},
+      OP_TIME_ = #{record.opTime,jdbcType=TIMESTAMP},
+      OPERATOR_ = #{record.operator,jdbcType=VARCHAR},
+      SORT_ = #{record.sort,jdbcType=DECIMAL},
+      ORGID = #{record.orgid,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.zzd.pojo.SysRole" >
+    update sys_role
+    <set >
+      <if test="description != null" >
+        DESCRIPTION_ = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null" >
+        ENABLED_ = #{enabled,jdbcType=DECIMAL},
+      </if>
+      <if test="name != null" >
+        NAME_ = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="opTime != null" >
+        OP_TIME_ = #{opTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operator != null" >
+        OPERATOR_ = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        SORT_ = #{sort,jdbcType=DECIMAL},
+      </if>
+      <if test="orgid != null" >
+        ORGID = #{orgid,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID_ = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.zzd.pojo.SysRole" >
+    update sys_role
+    set DESCRIPTION_ = #{description,jdbcType=VARCHAR},
+      ENABLED_ = #{enabled,jdbcType=DECIMAL},
+      NAME_ = #{name,jdbcType=VARCHAR},
+      OP_TIME_ = #{opTime,jdbcType=TIMESTAMP},
+      OPERATOR_ = #{operator,jdbcType=VARCHAR},
+      SORT_ = #{sort,jdbcType=DECIMAL},
+      ORGID = #{orgid,jdbcType=DECIMAL}
+    where ID_ = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

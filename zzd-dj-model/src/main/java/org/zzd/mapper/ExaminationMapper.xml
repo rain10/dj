@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.zzd.mapper.ExaminationMapper" >
+  <resultMap id="BaseResultMap" type="org.zzd.pojo.Examination" >
+    <id column="id_" property="id" jdbcType="BIGINT" />
+    <result column="title_" property="title" jdbcType="VARCHAR" />
+    <result column="manager_" property="manager" jdbcType="VARCHAR" />
+    <result column="manager_time_" property="managerTime" jdbcType="TIMESTAMP" />
+    <result column="start_time_" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="end_time_" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="ing_time_" property="ingTime" jdbcType="BIGINT" />
+    <result column="ing_" property="ing" jdbcType="INTEGER" />
+    <result column="enabled_" property="enabled" jdbcType="INTEGER" />
+    <result column="type_" property="type" jdbcType="INTEGER" />
+    <result column="exam_type_" property="examType" jdbcType="VARCHAR" />
+    <result column="paper_id_" property="paperId" jdbcType="BIGINT" />
+    <result column="orgid_" property="orgid" jdbcType="BIGINT" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="org.zzd.pojo.ExaminationWithBLOBs" extends="BaseResultMap" >
+    <result column="content_" property="content" jdbcType="LONGVARCHAR" />
+    <result column="rule_" property="rule" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id_, title_, manager_, manager_time_, start_time_, end_time_, ing_time_, ing_, enabled_, 
+    type_, exam_type_, paper_id_, orgid_
+  </sql>
+  <sql id="Blob_Column_List" >
+    content_, rule_
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="org.zzd.pojo.ExaminationExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from examination_
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.zzd.pojo.ExaminationExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from examination_
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from examination_
+    where id_ = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from examination_
+    where id_ = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.zzd.pojo.ExaminationExample" >
+    delete from examination_
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.zzd.pojo.ExaminationWithBLOBs" >
+    insert into examination_ (id_, title_, manager_, 
+      manager_time_, start_time_, end_time_, 
+      ing_time_, ing_, enabled_, 
+      type_, exam_type_, paper_id_, 
+      orgid_, content_, rule_
+      )
+    values (#{id,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{manager,jdbcType=VARCHAR}, 
+      #{managerTime,jdbcType=TIMESTAMP}, #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
+      #{ingTime,jdbcType=BIGINT}, #{ing,jdbcType=INTEGER}, #{enabled,jdbcType=INTEGER}, 
+      #{type,jdbcType=INTEGER}, #{examType,jdbcType=VARCHAR}, #{paperId,jdbcType=BIGINT}, 
+      #{orgid,jdbcType=BIGINT}, #{content,jdbcType=LONGVARCHAR}, #{rule,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.zzd.pojo.ExaminationWithBLOBs" >
+    insert into examination_
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id_,
+      </if>
+      <if test="title != null" >
+        title_,
+      </if>
+      <if test="manager != null" >
+        manager_,
+      </if>
+      <if test="managerTime != null" >
+        manager_time_,
+      </if>
+      <if test="startTime != null" >
+        start_time_,
+      </if>
+      <if test="endTime != null" >
+        end_time_,
+      </if>
+      <if test="ingTime != null" >
+        ing_time_,
+      </if>
+      <if test="ing != null" >
+        ing_,
+      </if>
+      <if test="enabled != null" >
+        enabled_,
+      </if>
+      <if test="type != null" >
+        type_,
+      </if>
+      <if test="examType != null" >
+        exam_type_,
+      </if>
+      <if test="paperId != null" >
+        paper_id_,
+      </if>
+      <if test="orgid != null" >
+        orgid_,
+      </if>
+      <if test="content != null" >
+        content_,
+      </if>
+      <if test="rule != null" >
+        rule_,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="manager != null" >
+        #{manager,jdbcType=VARCHAR},
+      </if>
+      <if test="managerTime != null" >
+        #{managerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ingTime != null" >
+        #{ingTime,jdbcType=BIGINT},
+      </if>
+      <if test="ing != null" >
+        #{ing,jdbcType=INTEGER},
+      </if>
+      <if test="enabled != null" >
+        #{enabled,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="examType != null" >
+        #{examType,jdbcType=VARCHAR},
+      </if>
+      <if test="paperId != null" >
+        #{paperId,jdbcType=BIGINT},
+      </if>
+      <if test="orgid != null" >
+        #{orgid,jdbcType=BIGINT},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="rule != null" >
+        #{rule,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.zzd.pojo.ExaminationExample" resultType="java.lang.Integer" >
+    select count(*) from examination_
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update examination_
+    <set >
+      <if test="record.id != null" >
+        id_ = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.title != null" >
+        title_ = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.manager != null" >
+        manager_ = #{record.manager,jdbcType=VARCHAR},
+      </if>
+      <if test="record.managerTime != null" >
+        manager_time_ = #{record.managerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.startTime != null" >
+        start_time_ = #{record.startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endTime != null" >
+        end_time_ = #{record.endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.ingTime != null" >
+        ing_time_ = #{record.ingTime,jdbcType=BIGINT},
+      </if>
+      <if test="record.ing != null" >
+        ing_ = #{record.ing,jdbcType=INTEGER},
+      </if>
+      <if test="record.enabled != null" >
+        enabled_ = #{record.enabled,jdbcType=INTEGER},
+      </if>
+      <if test="record.type != null" >
+        type_ = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.examType != null" >
+        exam_type_ = #{record.examType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paperId != null" >
+        paper_id_ = #{record.paperId,jdbcType=BIGINT},
+      </if>
+      <if test="record.orgid != null" >
+        orgid_ = #{record.orgid,jdbcType=BIGINT},
+      </if>
+      <if test="record.content != null" >
+        content_ = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.rule != null" >
+        rule_ = #{record.rule,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update examination_
+    set id_ = #{record.id,jdbcType=BIGINT},
+      title_ = #{record.title,jdbcType=VARCHAR},
+      manager_ = #{record.manager,jdbcType=VARCHAR},
+      manager_time_ = #{record.managerTime,jdbcType=TIMESTAMP},
+      start_time_ = #{record.startTime,jdbcType=TIMESTAMP},
+      end_time_ = #{record.endTime,jdbcType=TIMESTAMP},
+      ing_time_ = #{record.ingTime,jdbcType=BIGINT},
+      ing_ = #{record.ing,jdbcType=INTEGER},
+      enabled_ = #{record.enabled,jdbcType=INTEGER},
+      type_ = #{record.type,jdbcType=INTEGER},
+      exam_type_ = #{record.examType,jdbcType=VARCHAR},
+      paper_id_ = #{record.paperId,jdbcType=BIGINT},
+      orgid_ = #{record.orgid,jdbcType=BIGINT},
+      content_ = #{record.content,jdbcType=LONGVARCHAR},
+      rule_ = #{record.rule,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update examination_
+    set id_ = #{record.id,jdbcType=BIGINT},
+      title_ = #{record.title,jdbcType=VARCHAR},
+      manager_ = #{record.manager,jdbcType=VARCHAR},
+      manager_time_ = #{record.managerTime,jdbcType=TIMESTAMP},
+      start_time_ = #{record.startTime,jdbcType=TIMESTAMP},
+      end_time_ = #{record.endTime,jdbcType=TIMESTAMP},
+      ing_time_ = #{record.ingTime,jdbcType=BIGINT},
+      ing_ = #{record.ing,jdbcType=INTEGER},
+      enabled_ = #{record.enabled,jdbcType=INTEGER},
+      type_ = #{record.type,jdbcType=INTEGER},
+      exam_type_ = #{record.examType,jdbcType=VARCHAR},
+      paper_id_ = #{record.paperId,jdbcType=BIGINT},
+      orgid_ = #{record.orgid,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.zzd.pojo.ExaminationWithBLOBs" >
+    update examination_
+    <set >
+      <if test="title != null" >
+        title_ = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="manager != null" >
+        manager_ = #{manager,jdbcType=VARCHAR},
+      </if>
+      <if test="managerTime != null" >
+        manager_time_ = #{managerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startTime != null" >
+        start_time_ = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        end_time_ = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ingTime != null" >
+        ing_time_ = #{ingTime,jdbcType=BIGINT},
+      </if>
+      <if test="ing != null" >
+        ing_ = #{ing,jdbcType=INTEGER},
+      </if>
+      <if test="enabled != null" >
+        enabled_ = #{enabled,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type_ = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="examType != null" >
+        exam_type_ = #{examType,jdbcType=VARCHAR},
+      </if>
+      <if test="paperId != null" >
+        paper_id_ = #{paperId,jdbcType=BIGINT},
+      </if>
+      <if test="orgid != null" >
+        orgid_ = #{orgid,jdbcType=BIGINT},
+      </if>
+      <if test="content != null" >
+        content_ = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="rule != null" >
+        rule_ = #{rule,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id_ = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="org.zzd.pojo.ExaminationWithBLOBs" >
+    update examination_
+    set title_ = #{title,jdbcType=VARCHAR},
+      manager_ = #{manager,jdbcType=VARCHAR},
+      manager_time_ = #{managerTime,jdbcType=TIMESTAMP},
+      start_time_ = #{startTime,jdbcType=TIMESTAMP},
+      end_time_ = #{endTime,jdbcType=TIMESTAMP},
+      ing_time_ = #{ingTime,jdbcType=BIGINT},
+      ing_ = #{ing,jdbcType=INTEGER},
+      enabled_ = #{enabled,jdbcType=INTEGER},
+      type_ = #{type,jdbcType=INTEGER},
+      exam_type_ = #{examType,jdbcType=VARCHAR},
+      paper_id_ = #{paperId,jdbcType=BIGINT},
+      orgid_ = #{orgid,jdbcType=BIGINT},
+      content_ = #{content,jdbcType=LONGVARCHAR},
+      rule_ = #{rule,jdbcType=LONGVARCHAR}
+    where id_ = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.zzd.pojo.Examination" >
+    update examination_
+    set title_ = #{title,jdbcType=VARCHAR},
+      manager_ = #{manager,jdbcType=VARCHAR},
+      manager_time_ = #{managerTime,jdbcType=TIMESTAMP},
+      start_time_ = #{startTime,jdbcType=TIMESTAMP},
+      end_time_ = #{endTime,jdbcType=TIMESTAMP},
+      ing_time_ = #{ingTime,jdbcType=BIGINT},
+      ing_ = #{ing,jdbcType=INTEGER},
+      enabled_ = #{enabled,jdbcType=INTEGER},
+      type_ = #{type,jdbcType=INTEGER},
+      exam_type_ = #{examType,jdbcType=VARCHAR},
+      paper_id_ = #{paperId,jdbcType=BIGINT},
+      orgid_ = #{orgid,jdbcType=BIGINT}
+    where id_ = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.zzd.mapper.SysLogHandleMapper" >
+  <resultMap id="BaseResultMap" type="org.zzd.pojo.SysLogHandle" >
+    <id column="LOG_ID" property="logId" jdbcType="BIGINT" />
+    <result column="LOG_TIME" property="logTime" jdbcType="TIMESTAMP" />
+    <result column="LOG_USER" property="logUser" jdbcType="VARCHAR" />
+    <result column="LOG_URL" property="logUrl" jdbcType="VARCHAR" />
+    <result column="LOG_DATA" property="logData" jdbcType="VARCHAR" />
+    <result column="LOG_SUCCESS" property="logSuccess" jdbcType="VARCHAR" />
+    <result column="LOG_EXCEPTION" property="logException" jdbcType="VARCHAR" />
+    <result column="LOG_IP" property="logIp" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    LOG_ID, LOG_TIME, LOG_USER, LOG_URL, LOG_DATA, LOG_SUCCESS, LOG_EXCEPTION, LOG_IP
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.zzd.pojo.SysLogHandleExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_log_handle
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_log_handle
+    where LOG_ID = #{logId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sys_log_handle
+    where LOG_ID = #{logId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.zzd.pojo.SysLogHandleExample" >
+    delete from sys_log_handle
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.zzd.pojo.SysLogHandle" >
+    insert into sys_log_handle (LOG_ID, LOG_TIME, LOG_USER, 
+      LOG_URL, LOG_DATA, LOG_SUCCESS, 
+      LOG_EXCEPTION, LOG_IP)
+    values (#{logId,jdbcType=BIGINT}, #{logTime,jdbcType=TIMESTAMP}, #{logUser,jdbcType=VARCHAR}, 
+      #{logUrl,jdbcType=VARCHAR}, #{logData,jdbcType=VARCHAR}, #{logSuccess,jdbcType=VARCHAR}, 
+      #{logException,jdbcType=VARCHAR}, #{logIp,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.zzd.pojo.SysLogHandle" >
+    insert into sys_log_handle
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="logId != null" >
+        LOG_ID,
+      </if>
+      <if test="logTime != null" >
+        LOG_TIME,
+      </if>
+      <if test="logUser != null" >
+        LOG_USER,
+      </if>
+      <if test="logUrl != null" >
+        LOG_URL,
+      </if>
+      <if test="logData != null" >
+        LOG_DATA,
+      </if>
+      <if test="logSuccess != null" >
+        LOG_SUCCESS,
+      </if>
+      <if test="logException != null" >
+        LOG_EXCEPTION,
+      </if>
+      <if test="logIp != null" >
+        LOG_IP,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="logId != null" >
+        #{logId,jdbcType=BIGINT},
+      </if>
+      <if test="logTime != null" >
+        #{logTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logUser != null" >
+        #{logUser,jdbcType=VARCHAR},
+      </if>
+      <if test="logUrl != null" >
+        #{logUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="logData != null" >
+        #{logData,jdbcType=VARCHAR},
+      </if>
+      <if test="logSuccess != null" >
+        #{logSuccess,jdbcType=VARCHAR},
+      </if>
+      <if test="logException != null" >
+        #{logException,jdbcType=VARCHAR},
+      </if>
+      <if test="logIp != null" >
+        #{logIp,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.zzd.pojo.SysLogHandleExample" resultType="java.lang.Integer" >
+    select count(*) from sys_log_handle
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sys_log_handle
+    <set >
+      <if test="record.logId != null" >
+        LOG_ID = #{record.logId,jdbcType=BIGINT},
+      </if>
+      <if test="record.logTime != null" >
+        LOG_TIME = #{record.logTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.logUser != null" >
+        LOG_USER = #{record.logUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logUrl != null" >
+        LOG_URL = #{record.logUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logData != null" >
+        LOG_DATA = #{record.logData,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logSuccess != null" >
+        LOG_SUCCESS = #{record.logSuccess,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logException != null" >
+        LOG_EXCEPTION = #{record.logException,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logIp != null" >
+        LOG_IP = #{record.logIp,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sys_log_handle
+    set LOG_ID = #{record.logId,jdbcType=BIGINT},
+      LOG_TIME = #{record.logTime,jdbcType=TIMESTAMP},
+      LOG_USER = #{record.logUser,jdbcType=VARCHAR},
+      LOG_URL = #{record.logUrl,jdbcType=VARCHAR},
+      LOG_DATA = #{record.logData,jdbcType=VARCHAR},
+      LOG_SUCCESS = #{record.logSuccess,jdbcType=VARCHAR},
+      LOG_EXCEPTION = #{record.logException,jdbcType=VARCHAR},
+      LOG_IP = #{record.logIp,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.zzd.pojo.SysLogHandle" >
+    update sys_log_handle
+    <set >
+      <if test="logTime != null" >
+        LOG_TIME = #{logTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logUser != null" >
+        LOG_USER = #{logUser,jdbcType=VARCHAR},
+      </if>
+      <if test="logUrl != null" >
+        LOG_URL = #{logUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="logData != null" >
+        LOG_DATA = #{logData,jdbcType=VARCHAR},
+      </if>
+      <if test="logSuccess != null" >
+        LOG_SUCCESS = #{logSuccess,jdbcType=VARCHAR},
+      </if>
+      <if test="logException != null" >
+        LOG_EXCEPTION = #{logException,jdbcType=VARCHAR},
+      </if>
+      <if test="logIp != null" >
+        LOG_IP = #{logIp,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where LOG_ID = #{logId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.zzd.pojo.SysLogHandle" >
+    update sys_log_handle
+    set LOG_TIME = #{logTime,jdbcType=TIMESTAMP},
+      LOG_USER = #{logUser,jdbcType=VARCHAR},
+      LOG_URL = #{logUrl,jdbcType=VARCHAR},
+      LOG_DATA = #{logData,jdbcType=VARCHAR},
+      LOG_SUCCESS = #{logSuccess,jdbcType=VARCHAR},
+      LOG_EXCEPTION = #{logException,jdbcType=VARCHAR},
+      LOG_IP = #{logIp,jdbcType=VARCHAR}
+    where LOG_ID = #{logId,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.zzd.mapper.SysAttachmentsMapper" >
+  <resultMap id="BaseResultMap" type="org.zzd.pojo.SysAttachments" >
+    <id column="id_" property="id" jdbcType="BIGINT" />
+    <result column="attachments_type_" property="attachmentsType" jdbcType="VARCHAR" />
+    <result column="service_path_" property="servicePath" jdbcType="VARCHAR" />
+    <result column="app_name_" property="appName" jdbcType="VARCHAR" />
+    <result column="upload_app_name_" property="uploadAppName" jdbcType="VARCHAR" />
+    <result column="attachment_path_" property="attachmentPath" jdbcType="VARCHAR" />
+    <result column="attachment_name_" property="attachmentName" jdbcType="VARCHAR" />
+    <result column="attachment_size_" property="attachmentSize" jdbcType="VARCHAR" />
+    <result column="attachment_format_" property="attachmentFormat" jdbcType="VARCHAR" />
+    <result column="op_time_" property="opTime" jdbcType="TIMESTAMP" />
+    <result column="enabled_" property="enabled" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id_, attachments_type_, service_path_, app_name_, upload_app_name_, attachment_path_, 
+    attachment_name_, attachment_size_, attachment_format_, op_time_, enabled_
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.zzd.pojo.SysAttachmentsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_attachments
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_attachments
+    where id_ = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sys_attachments
+    where id_ = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.zzd.pojo.SysAttachmentsExample" >
+    delete from sys_attachments
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.zzd.pojo.SysAttachments" >
+    insert into sys_attachments (id_, attachments_type_, service_path_, 
+      app_name_, upload_app_name_, attachment_path_, 
+      attachment_name_, attachment_size_, attachment_format_, 
+      op_time_, enabled_)
+    values (#{id,jdbcType=BIGINT}, #{attachmentsType,jdbcType=VARCHAR}, #{servicePath,jdbcType=VARCHAR}, 
+      #{appName,jdbcType=VARCHAR}, #{uploadAppName,jdbcType=VARCHAR}, #{attachmentPath,jdbcType=VARCHAR}, 
+      #{attachmentName,jdbcType=VARCHAR}, #{attachmentSize,jdbcType=VARCHAR}, #{attachmentFormat,jdbcType=VARCHAR}, 
+      #{opTime,jdbcType=TIMESTAMP}, #{enabled,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="org.zzd.pojo.SysAttachments" >
+    insert into sys_attachments
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id_,
+      </if>
+      <if test="attachmentsType != null" >
+        attachments_type_,
+      </if>
+      <if test="servicePath != null" >
+        service_path_,
+      </if>
+      <if test="appName != null" >
+        app_name_,
+      </if>
+      <if test="uploadAppName != null" >
+        upload_app_name_,
+      </if>
+      <if test="attachmentPath != null" >
+        attachment_path_,
+      </if>
+      <if test="attachmentName != null" >
+        attachment_name_,
+      </if>
+      <if test="attachmentSize != null" >
+        attachment_size_,
+      </if>
+      <if test="attachmentFormat != null" >
+        attachment_format_,
+      </if>
+      <if test="opTime != null" >
+        op_time_,
+      </if>
+      <if test="enabled != null" >
+        enabled_,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="attachmentsType != null" >
+        #{attachmentsType,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePath != null" >
+        #{servicePath,jdbcType=VARCHAR},
+      </if>
+      <if test="appName != null" >
+        #{appName,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadAppName != null" >
+        #{uploadAppName,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentPath != null" >
+        #{attachmentPath,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentName != null" >
+        #{attachmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentSize != null" >
+        #{attachmentSize,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentFormat != null" >
+        #{attachmentFormat,jdbcType=VARCHAR},
+      </if>
+      <if test="opTime != null" >
+        #{opTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enabled != null" >
+        #{enabled,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.zzd.pojo.SysAttachmentsExample" resultType="java.lang.Integer" >
+    select count(*) from sys_attachments
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sys_attachments
+    <set >
+      <if test="record.id != null" >
+        id_ = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.attachmentsType != null" >
+        attachments_type_ = #{record.attachmentsType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.servicePath != null" >
+        service_path_ = #{record.servicePath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.appName != null" >
+        app_name_ = #{record.appName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uploadAppName != null" >
+        upload_app_name_ = #{record.uploadAppName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attachmentPath != null" >
+        attachment_path_ = #{record.attachmentPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attachmentName != null" >
+        attachment_name_ = #{record.attachmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attachmentSize != null" >
+        attachment_size_ = #{record.attachmentSize,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attachmentFormat != null" >
+        attachment_format_ = #{record.attachmentFormat,jdbcType=VARCHAR},
+      </if>
+      <if test="record.opTime != null" >
+        op_time_ = #{record.opTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.enabled != null" >
+        enabled_ = #{record.enabled,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sys_attachments
+    set id_ = #{record.id,jdbcType=BIGINT},
+      attachments_type_ = #{record.attachmentsType,jdbcType=VARCHAR},
+      service_path_ = #{record.servicePath,jdbcType=VARCHAR},
+      app_name_ = #{record.appName,jdbcType=VARCHAR},
+      upload_app_name_ = #{record.uploadAppName,jdbcType=VARCHAR},
+      attachment_path_ = #{record.attachmentPath,jdbcType=VARCHAR},
+      attachment_name_ = #{record.attachmentName,jdbcType=VARCHAR},
+      attachment_size_ = #{record.attachmentSize,jdbcType=VARCHAR},
+      attachment_format_ = #{record.attachmentFormat,jdbcType=VARCHAR},
+      op_time_ = #{record.opTime,jdbcType=TIMESTAMP},
+      enabled_ = #{record.enabled,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.zzd.pojo.SysAttachments" >
+    update sys_attachments
+    <set >
+      <if test="attachmentsType != null" >
+        attachments_type_ = #{attachmentsType,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePath != null" >
+        service_path_ = #{servicePath,jdbcType=VARCHAR},
+      </if>
+      <if test="appName != null" >
+        app_name_ = #{appName,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadAppName != null" >
+        upload_app_name_ = #{uploadAppName,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentPath != null" >
+        attachment_path_ = #{attachmentPath,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentName != null" >
+        attachment_name_ = #{attachmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentSize != null" >
+        attachment_size_ = #{attachmentSize,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentFormat != null" >
+        attachment_format_ = #{attachmentFormat,jdbcType=VARCHAR},
+      </if>
+      <if test="opTime != null" >
+        op_time_ = #{opTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enabled != null" >
+        enabled_ = #{enabled,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id_ = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.zzd.pojo.SysAttachments" >
+    update sys_attachments
+    set attachments_type_ = #{attachmentsType,jdbcType=VARCHAR},
+      service_path_ = #{servicePath,jdbcType=VARCHAR},
+      app_name_ = #{appName,jdbcType=VARCHAR},
+      upload_app_name_ = #{uploadAppName,jdbcType=VARCHAR},
+      attachment_path_ = #{attachmentPath,jdbcType=VARCHAR},
+      attachment_name_ = #{attachmentName,jdbcType=VARCHAR},
+      attachment_size_ = #{attachmentSize,jdbcType=VARCHAR},
+      attachment_format_ = #{attachmentFormat,jdbcType=VARCHAR},
+      op_time_ = #{opTime,jdbcType=TIMESTAMP},
+      enabled_ = #{enabled,jdbcType=INTEGER}
+    where id_ = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

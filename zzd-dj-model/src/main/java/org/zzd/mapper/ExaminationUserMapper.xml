@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.zzd.mapper.ExaminationUserMapper" >
+  <resultMap id="BaseResultMap" type="org.zzd.pojo.ExaminationUser" >
+    <id column="id_" property="id" jdbcType="BIGINT" />
+    <result column="user_id_" property="userId" jdbcType="BIGINT" />
+    <result column="exam_id_" property="examId" jdbcType="BIGINT" />
+    <result column="start_time_" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="ing_" property="ing" jdbcType="INTEGER" />
+    <result column="end_time_" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="score_" property="score" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id_, user_id_, exam_id_, start_time_, ing_, end_time_, score_
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.zzd.pojo.ExaminationUserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from examination_user_
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from examination_user_
+    where id_ = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from examination_user_
+    where id_ = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.zzd.pojo.ExaminationUserExample" >
+    delete from examination_user_
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.zzd.pojo.ExaminationUser" useGeneratedKeys="true" keyProperty="id">
+    insert into examination_user_ (id_, user_id_, exam_id_, 
+      start_time_, ing_, end_time_, 
+      score_)
+    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{examId,jdbcType=BIGINT}, 
+      #{startTime,jdbcType=TIMESTAMP}, #{ing,jdbcType=INTEGER}, #{endTime,jdbcType=TIMESTAMP}, 
+      #{score,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="org.zzd.pojo.ExaminationUser" >
+    insert into examination_user_
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id_,
+      </if>
+      <if test="userId != null" >
+        user_id_,
+      </if>
+      <if test="examId != null" >
+        exam_id_,
+      </if>
+      <if test="startTime != null" >
+        start_time_,
+      </if>
+      <if test="ing != null" >
+        ing_,
+      </if>
+      <if test="endTime != null" >
+        end_time_,
+      </if>
+      <if test="score != null" >
+        score_,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="examId != null" >
+        #{examId,jdbcType=BIGINT},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ing != null" >
+        #{ing,jdbcType=INTEGER},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.zzd.pojo.ExaminationUserExample" resultType="java.lang.Integer" >
+    select count(*) from examination_user_
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update examination_user_
+    <set >
+      <if test="record.id != null" >
+        id_ = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.userId != null" >
+        user_id_ = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.examId != null" >
+        exam_id_ = #{record.examId,jdbcType=BIGINT},
+      </if>
+      <if test="record.startTime != null" >
+        start_time_ = #{record.startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.ing != null" >
+        ing_ = #{record.ing,jdbcType=INTEGER},
+      </if>
+      <if test="record.endTime != null" >
+        end_time_ = #{record.endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.score != null" >
+        score_ = #{record.score,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update examination_user_
+    set id_ = #{record.id,jdbcType=BIGINT},
+      user_id_ = #{record.userId,jdbcType=BIGINT},
+      exam_id_ = #{record.examId,jdbcType=BIGINT},
+      start_time_ = #{record.startTime,jdbcType=TIMESTAMP},
+      ing_ = #{record.ing,jdbcType=INTEGER},
+      end_time_ = #{record.endTime,jdbcType=TIMESTAMP},
+      score_ = #{record.score,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.zzd.pojo.ExaminationUser" >
+    update examination_user_
+    <set >
+      <if test="userId != null" >
+        user_id_ = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="examId != null" >
+        exam_id_ = #{examId,jdbcType=BIGINT},
+      </if>
+      <if test="startTime != null" >
+        start_time_ = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ing != null" >
+        ing_ = #{ing,jdbcType=INTEGER},
+      </if>
+      <if test="endTime != null" >
+        end_time_ = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="score != null" >
+        score_ = #{score,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id_ = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.zzd.pojo.ExaminationUser" >
+    update examination_user_
+    set user_id_ = #{userId,jdbcType=BIGINT},
+      exam_id_ = #{examId,jdbcType=BIGINT},
+      start_time_ = #{startTime,jdbcType=TIMESTAMP},
+      ing_ = #{ing,jdbcType=INTEGER},
+      end_time_ = #{endTime,jdbcType=TIMESTAMP},
+      score_ = #{score,jdbcType=DECIMAL}
+    where id_ = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.zzd.mapper.ContentMapper" >
+  <resultMap id="BaseResultMap" type="org.zzd.pojo.Content" >
+    <id column="id_" property="id" jdbcType="BIGINT" />
+    <result column="title_" property="title" jdbcType="VARCHAR" />
+    <result column="recommend_" property="recommend" jdbcType="INTEGER" />
+    <result column="type_" property="type" jdbcType="INTEGER" />
+    <result column="other_" property="other" jdbcType="VARCHAR" />
+    <result column="enabled_" property="enabled" jdbcType="INTEGER" />
+    <result column="manager_" property="manager" jdbcType="VARCHAR" />
+    <result column="maneger_time_" property="manegerTime" jdbcType="TIMESTAMP" />
+    <result column="orgid_" property="orgid" jdbcType="BIGINT" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="org.zzd.pojo.Content" extends="BaseResultMap" >
+    <result column="content_" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id_, title_, recommend_, type_, other_, enabled_, manager_, maneger_time_, orgid_
+  </sql>
+  <sql id="Blob_Column_List" >
+    content_
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="org.zzd.pojo.ContentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from content_
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.zzd.pojo.ContentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from content_
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from content_
+    where id_ = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from content_
+    where id_ = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.zzd.pojo.ContentExample" >
+    delete from content_
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.zzd.pojo.Content" useGeneratedKeys="true" keyProperty="id">
+    insert into content_ (id_, title_, recommend_, 
+      type_, other_, enabled_, 
+      manager_, maneger_time_, orgid_, 
+      content_)
+    values (#{id,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{recommend,jdbcType=INTEGER}, 
+      #{type,jdbcType=INTEGER}, #{other,jdbcType=VARCHAR}, #{enabled,jdbcType=INTEGER}, 
+      #{manager,jdbcType=VARCHAR}, #{manegerTime,jdbcType=TIMESTAMP}, #{orgid,jdbcType=BIGINT}, 
+      #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.zzd.pojo.Content" >
+    insert into content_
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id_,
+      </if>
+      <if test="title != null" >
+        title_,
+      </if>
+      <if test="recommend != null" >
+        recommend_,
+      </if>
+      <if test="type != null" >
+        type_,
+      </if>
+      <if test="other != null" >
+        other_,
+      </if>
+      <if test="enabled != null" >
+        enabled_,
+      </if>
+      <if test="manager != null" >
+        manager_,
+      </if>
+      <if test="manegerTime != null" >
+        maneger_time_,
+      </if>
+      <if test="orgid != null" >
+        orgid_,
+      </if>
+      <if test="content != null" >
+        content_,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="recommend != null" >
+        #{recommend,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="other != null" >
+        #{other,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null" >
+        #{enabled,jdbcType=INTEGER},
+      </if>
+      <if test="manager != null" >
+        #{manager,jdbcType=VARCHAR},
+      </if>
+      <if test="manegerTime != null" >
+        #{manegerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orgid != null" >
+        #{orgid,jdbcType=BIGINT},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.zzd.pojo.ContentExample" resultType="java.lang.Integer" >
+    select count(*) from content_
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update content_
+    <set >
+      <if test="record.id != null" >
+        id_ = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.title != null" >
+        title_ = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.recommend != null" >
+        recommend_ = #{record.recommend,jdbcType=INTEGER},
+      </if>
+      <if test="record.type != null" >
+        type_ = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.other != null" >
+        other_ = #{record.other,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enabled != null" >
+        enabled_ = #{record.enabled,jdbcType=INTEGER},
+      </if>
+      <if test="record.manager != null" >
+        manager_ = #{record.manager,jdbcType=VARCHAR},
+      </if>
+      <if test="record.manegerTime != null" >
+        maneger_time_ = #{record.manegerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.orgid != null" >
+        orgid_ = #{record.orgid,jdbcType=BIGINT},
+      </if>
+      <if test="record.content != null" >
+        content_ = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update content_
+    set id_ = #{record.id,jdbcType=BIGINT},
+      title_ = #{record.title,jdbcType=VARCHAR},
+      recommend_ = #{record.recommend,jdbcType=INTEGER},
+      type_ = #{record.type,jdbcType=INTEGER},
+      other_ = #{record.other,jdbcType=VARCHAR},
+      enabled_ = #{record.enabled,jdbcType=INTEGER},
+      manager_ = #{record.manager,jdbcType=VARCHAR},
+      maneger_time_ = #{record.manegerTime,jdbcType=TIMESTAMP},
+      orgid_ = #{record.orgid,jdbcType=BIGINT},
+      content_ = #{record.content,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update content_
+    set id_ = #{record.id,jdbcType=BIGINT},
+      title_ = #{record.title,jdbcType=VARCHAR},
+      recommend_ = #{record.recommend,jdbcType=INTEGER},
+      type_ = #{record.type,jdbcType=INTEGER},
+      other_ = #{record.other,jdbcType=VARCHAR},
+      enabled_ = #{record.enabled,jdbcType=INTEGER},
+      manager_ = #{record.manager,jdbcType=VARCHAR},
+      maneger_time_ = #{record.manegerTime,jdbcType=TIMESTAMP},
+      orgid_ = #{record.orgid,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.zzd.pojo.Content" >
+    update content_
+    <set >
+      <if test="title != null" >
+        title_ = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="recommend != null" >
+        recommend_ = #{recommend,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type_ = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="other != null" >
+        other_ = #{other,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null" >
+        enabled_ = #{enabled,jdbcType=INTEGER},
+      </if>
+      <if test="manager != null" >
+        manager_ = #{manager,jdbcType=VARCHAR},
+      </if>
+      <if test="manegerTime != null" >
+        maneger_time_ = #{manegerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orgid != null" >
+        orgid_ = #{orgid,jdbcType=BIGINT},
+      </if>
+      <if test="content != null" >
+        content_ = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id_ = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="org.zzd.pojo.Content" >
+    update content_
+    set title_ = #{title,jdbcType=VARCHAR},
+      recommend_ = #{recommend,jdbcType=INTEGER},
+      type_ = #{type,jdbcType=INTEGER},
+      other_ = #{other,jdbcType=VARCHAR},
+      enabled_ = #{enabled,jdbcType=INTEGER},
+      manager_ = #{manager,jdbcType=VARCHAR},
+      maneger_time_ = #{manegerTime,jdbcType=TIMESTAMP},
+      orgid_ = #{orgid,jdbcType=BIGINT},
+      content_ = #{content,jdbcType=LONGVARCHAR}
+    where id_ = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.zzd.pojo.Content" >
+    update content_
+    set title_ = #{title,jdbcType=VARCHAR},
+      recommend_ = #{recommend,jdbcType=INTEGER},
+      type_ = #{type,jdbcType=INTEGER},
+      other_ = #{other,jdbcType=VARCHAR},
+      enabled_ = #{enabled,jdbcType=INTEGER},
+      manager_ = #{manager,jdbcType=VARCHAR},
+      maneger_time_ = #{manegerTime,jdbcType=TIMESTAMP},
+      orgid_ = #{orgid,jdbcType=BIGINT}
+    where id_ = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <select parameterType="java.lang.String" id="selectCountByDate" resultType="java.lang.Integer">
+  		SELECT COUNT(*) FROM content_ c WHERE c.orgid_=#{0} and DATE_FORMAT(c.maneger_time_,'%Y-%m-%d')=#{1};
+  </select>
+</mapper>

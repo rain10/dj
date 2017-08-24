@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.zzd.mapper.SysOrganizationMapper" >
+  <resultMap id="BaseResultMap" type="org.zzd.pojo.SysOrganization" >
+    <id column="ID_" property="id" jdbcType="DECIMAL" />
+    <result column="NUMBER_" property="number" jdbcType="VARCHAR" />
+    <result column="NAME_" property="name" jdbcType="VARCHAR" />
+    <result column="ENABLED_" property="enabled" jdbcType="DECIMAL" />
+    <result column="PID_" property="pid" jdbcType="DECIMAL" />
+    <result column="CITY" property="city" jdbcType="DECIMAL" />
+    <result column="GRADE" property="grade" jdbcType="DECIMAL" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="org.zzd.pojo.SysOrganization" extends="BaseResultMap" >
+    <result column="MARK" property="mark" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID_, NUMBER_, NAME_, ENABLED_, PID_, CITY, GRADE
+  </sql>
+  <sql id="Blob_Column_List" >
+    MARK
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="org.zzd.pojo.SysOrganizationExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sys_organization
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.zzd.pojo.SysOrganizationExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_organization
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sys_organization
+    where ID_ = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sys_organization
+    where ID_ = #{id,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.zzd.pojo.SysOrganizationExample" >
+    delete from sys_organization
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.zzd.pojo.SysOrganization" >
+    insert into sys_organization (ID_, NUMBER_, NAME_, 
+      ENABLED_, PID_, CITY, 
+      GRADE, MARK)
+    values (#{id,jdbcType=DECIMAL}, #{number,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{enabled,jdbcType=DECIMAL}, #{pid,jdbcType=DECIMAL}, #{city,jdbcType=DECIMAL}, 
+      #{grade,jdbcType=DECIMAL}, #{mark,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.zzd.pojo.SysOrganization" >
+    insert into sys_organization
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID_,
+      </if>
+      <if test="number != null" >
+        NUMBER_,
+      </if>
+      <if test="name != null" >
+        NAME_,
+      </if>
+      <if test="enabled != null" >
+        ENABLED_,
+      </if>
+      <if test="pid != null" >
+        PID_,
+      </if>
+      <if test="city != null" >
+        CITY,
+      </if>
+      <if test="grade != null" >
+        GRADE,
+      </if>
+      <if test="mark != null" >
+        MARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="number != null" >
+        #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null" >
+        #{enabled,jdbcType=DECIMAL},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=DECIMAL},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=DECIMAL},
+      </if>
+      <if test="grade != null" >
+        #{grade,jdbcType=DECIMAL},
+      </if>
+      <if test="mark != null" >
+        #{mark,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.zzd.pojo.SysOrganizationExample" resultType="java.lang.Integer" >
+    select count(*) from sys_organization
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sys_organization
+    <set >
+      <if test="record.id != null" >
+        ID_ = #{record.id,jdbcType=DECIMAL},
+      </if>
+      <if test="record.number != null" >
+        NUMBER_ = #{record.number,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        NAME_ = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enabled != null" >
+        ENABLED_ = #{record.enabled,jdbcType=DECIMAL},
+      </if>
+      <if test="record.pid != null" >
+        PID_ = #{record.pid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.city != null" >
+        CITY = #{record.city,jdbcType=DECIMAL},
+      </if>
+      <if test="record.grade != null" >
+        GRADE = #{record.grade,jdbcType=DECIMAL},
+      </if>
+      <if test="record.mark != null" >
+        MARK = #{record.mark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update sys_organization
+    set ID_ = #{record.id,jdbcType=DECIMAL},
+      NUMBER_ = #{record.number,jdbcType=VARCHAR},
+      NAME_ = #{record.name,jdbcType=VARCHAR},
+      ENABLED_ = #{record.enabled,jdbcType=DECIMAL},
+      PID_ = #{record.pid,jdbcType=DECIMAL},
+      CITY = #{record.city,jdbcType=DECIMAL},
+      GRADE = #{record.grade,jdbcType=DECIMAL},
+      MARK = #{record.mark,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sys_organization
+    set ID_ = #{record.id,jdbcType=DECIMAL},
+      NUMBER_ = #{record.number,jdbcType=VARCHAR},
+      NAME_ = #{record.name,jdbcType=VARCHAR},
+      ENABLED_ = #{record.enabled,jdbcType=DECIMAL},
+      PID_ = #{record.pid,jdbcType=DECIMAL},
+      CITY = #{record.city,jdbcType=DECIMAL},
+      GRADE = #{record.grade,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.zzd.pojo.SysOrganization" >
+    update sys_organization
+    <set >
+      <if test="number != null" >
+        NUMBER_ = #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        NAME_ = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null" >
+        ENABLED_ = #{enabled,jdbcType=DECIMAL},
+      </if>
+      <if test="pid != null" >
+        PID_ = #{pid,jdbcType=DECIMAL},
+      </if>
+      <if test="city != null" >
+        CITY = #{city,jdbcType=DECIMAL},
+      </if>
+      <if test="grade != null" >
+        GRADE = #{grade,jdbcType=DECIMAL},
+      </if>
+      <if test="mark != null" >
+        MARK = #{mark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ID_ = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="org.zzd.pojo.SysOrganization" >
+    update sys_organization
+    set NUMBER_ = #{number,jdbcType=VARCHAR},
+      NAME_ = #{name,jdbcType=VARCHAR},
+      ENABLED_ = #{enabled,jdbcType=DECIMAL},
+      PID_ = #{pid,jdbcType=DECIMAL},
+      CITY = #{city,jdbcType=DECIMAL},
+      GRADE = #{grade,jdbcType=DECIMAL},
+      MARK = #{mark,jdbcType=LONGVARCHAR}
+    where ID_ = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.zzd.pojo.SysOrganization" >
+    update sys_organization
+    set NUMBER_ = #{number,jdbcType=VARCHAR},
+      NAME_ = #{name,jdbcType=VARCHAR},
+      ENABLED_ = #{enabled,jdbcType=DECIMAL},
+      PID_ = #{pid,jdbcType=DECIMAL},
+      CITY = #{city,jdbcType=DECIMAL},
+      GRADE = #{grade,jdbcType=DECIMAL}
+    where ID_ = #{id,jdbcType=DECIMAL}
+  </update>
+  
+  <select id="selectByOrgid" parameterType="java.lang.Long" resultType="java.lang.Long">
+  		select c.id_ from sys_organization c where c.pid_=#{orgid}
+  </select>
+</mapper>

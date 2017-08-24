@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.zzd.mapper.SysTokenMapper" >
+  <resultMap id="BaseResultMap" type="org.zzd.pojo.SysToken" >
+    <id column="USER_ID_" property="userId" jdbcType="DECIMAL" />
+    <result column="TOKEN_" property="token" jdbcType="VARCHAR" />
+    <result column="TOKEN_TIME_" property="tokenTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    USER_ID_, TOKEN_, TOKEN_TIME_
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.zzd.pojo.SysTokenExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_token
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_token
+    where USER_ID_ = #{userId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sys_token
+    where USER_ID_ = #{userId,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.zzd.pojo.SysTokenExample" >
+    delete from sys_token
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.zzd.pojo.SysToken" >
+    insert into sys_token (USER_ID_, TOKEN_, TOKEN_TIME_
+      )
+    values (#{userId,jdbcType=DECIMAL}, #{token,jdbcType=VARCHAR}, #{tokenTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.zzd.pojo.SysToken" >
+    insert into sys_token
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        USER_ID_,
+      </if>
+      <if test="token != null" >
+        TOKEN_,
+      </if>
+      <if test="tokenTime != null" >
+        TOKEN_TIME_,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="token != null" >
+        #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="tokenTime != null" >
+        #{tokenTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.zzd.pojo.SysTokenExample" resultType="java.lang.Integer" >
+    select count(*) from sys_token
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sys_token
+    <set >
+      <if test="record.userId != null" >
+        USER_ID_ = #{record.userId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.token != null" >
+        TOKEN_ = #{record.token,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tokenTime != null" >
+        TOKEN_TIME_ = #{record.tokenTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sys_token
+    set USER_ID_ = #{record.userId,jdbcType=DECIMAL},
+      TOKEN_ = #{record.token,jdbcType=VARCHAR},
+      TOKEN_TIME_ = #{record.tokenTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.zzd.pojo.SysToken" >
+    update sys_token
+    <set >
+      <if test="token != null" >
+        TOKEN_ = #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="tokenTime != null" >
+        TOKEN_TIME_ = #{tokenTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where USER_ID_ = #{userId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.zzd.pojo.SysToken" >
+    update sys_token
+    set TOKEN_ = #{token,jdbcType=VARCHAR},
+      TOKEN_TIME_ = #{tokenTime,jdbcType=TIMESTAMP}
+    where USER_ID_ = #{userId,jdbcType=DECIMAL}
+  </update>
+</mapper>

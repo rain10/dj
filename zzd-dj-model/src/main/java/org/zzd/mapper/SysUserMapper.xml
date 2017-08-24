@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.zzd.mapper.SysUserMapper" >
+  <resultMap id="BaseResultMap" type="org.zzd.pojo.SysUser" >
+    <id column="ID_" property="id" jdbcType="DECIMAL" />
+    <result column="ADDRESS_" property="address" jdbcType="VARCHAR" />
+    <result column="EMAIL_" property="email" jdbcType="VARCHAR" />
+    <result column="ENABLED_" property="enabled" jdbcType="DECIMAL" />
+    <result column="EXPIRED_" property="expired" jdbcType="DECIMAL" />
+    <result column="LOCKED_" property="locked" jdbcType="DECIMAL" />
+    <result column="PASSWORD_" property="password" jdbcType="VARCHAR" />
+    <result column="PHONE_" property="phone" jdbcType="VARCHAR" />
+    <result column="REALNAME_" property="realname" jdbcType="VARCHAR" />
+    <result column="USERNAME_" property="username" jdbcType="VARCHAR" />
+    <result column="USERTYPE_" property="usertype" jdbcType="DECIMAL" />
+    <result column="ORGID" property="orgid" jdbcType="DECIMAL" />
+    <result column="DEPID" property="depid" jdbcType="DECIMAL" />
+    <result column="PRPHONE_" property="prphone" jdbcType="VARCHAR" />
+    <result column="PROPEN" property="propen" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID_, ADDRESS_, EMAIL_, ENABLED_, EXPIRED_, LOCKED_, PASSWORD_, PHONE_, REALNAME_, 
+    USERNAME_, USERTYPE_, ORGID, DEPID, PRPHONE_, PROPEN
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.zzd.pojo.SysUserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_user
+    where ID_ = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sys_user
+    where ID_ = #{id,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.zzd.pojo.SysUserExample" >
+    delete from sys_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.zzd.pojo.SysUser" >
+    insert into sys_user (ID_, ADDRESS_, EMAIL_, 
+      ENABLED_, EXPIRED_, LOCKED_, 
+      PASSWORD_, PHONE_, REALNAME_, 
+      USERNAME_, USERTYPE_, ORGID, 
+      DEPID, PRPHONE_, PROPEN
+      )
+    values (#{id,jdbcType=DECIMAL}, #{address,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{enabled,jdbcType=DECIMAL}, #{expired,jdbcType=DECIMAL}, #{locked,jdbcType=DECIMAL}, 
+      #{password,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{realname,jdbcType=VARCHAR}, 
+      #{username,jdbcType=VARCHAR}, #{usertype,jdbcType=DECIMAL}, #{orgid,jdbcType=DECIMAL}, 
+      #{depid,jdbcType=DECIMAL}, #{prphone,jdbcType=VARCHAR}, #{propen,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.zzd.pojo.SysUser" >
+    insert into sys_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID_,
+      </if>
+      <if test="address != null" >
+        ADDRESS_,
+      </if>
+      <if test="email != null" >
+        EMAIL_,
+      </if>
+      <if test="enabled != null" >
+        ENABLED_,
+      </if>
+      <if test="expired != null" >
+        EXPIRED_,
+      </if>
+      <if test="locked != null" >
+        LOCKED_,
+      </if>
+      <if test="password != null" >
+        PASSWORD_,
+      </if>
+      <if test="phone != null" >
+        PHONE_,
+      </if>
+      <if test="realname != null" >
+        REALNAME_,
+      </if>
+      <if test="username != null" >
+        USERNAME_,
+      </if>
+      <if test="usertype != null" >
+        USERTYPE_,
+      </if>
+      <if test="orgid != null" >
+        ORGID,
+      </if>
+      <if test="depid != null" >
+        DEPID,
+      </if>
+      <if test="prphone != null" >
+        PRPHONE_,
+      </if>
+      <if test="propen != null" >
+        PROPEN,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null" >
+        #{enabled,jdbcType=DECIMAL},
+      </if>
+      <if test="expired != null" >
+        #{expired,jdbcType=DECIMAL},
+      </if>
+      <if test="locked != null" >
+        #{locked,jdbcType=DECIMAL},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="realname != null" >
+        #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="usertype != null" >
+        #{usertype,jdbcType=DECIMAL},
+      </if>
+      <if test="orgid != null" >
+        #{orgid,jdbcType=DECIMAL},
+      </if>
+      <if test="depid != null" >
+        #{depid,jdbcType=DECIMAL},
+      </if>
+      <if test="prphone != null" >
+        #{prphone,jdbcType=VARCHAR},
+      </if>
+      <if test="propen != null" >
+        #{propen,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.zzd.pojo.SysUserExample" resultType="java.lang.Integer" >
+    select count(*) from sys_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sys_user
+    <set >
+      <if test="record.id != null" >
+        ID_ = #{record.id,jdbcType=DECIMAL},
+      </if>
+      <if test="record.address != null" >
+        ADDRESS_ = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        EMAIL_ = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enabled != null" >
+        ENABLED_ = #{record.enabled,jdbcType=DECIMAL},
+      </if>
+      <if test="record.expired != null" >
+        EXPIRED_ = #{record.expired,jdbcType=DECIMAL},
+      </if>
+      <if test="record.locked != null" >
+        LOCKED_ = #{record.locked,jdbcType=DECIMAL},
+      </if>
+      <if test="record.password != null" >
+        PASSWORD_ = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null" >
+        PHONE_ = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.realname != null" >
+        REALNAME_ = #{record.realname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.username != null" >
+        USERNAME_ = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usertype != null" >
+        USERTYPE_ = #{record.usertype,jdbcType=DECIMAL},
+      </if>
+      <if test="record.orgid != null" >
+        ORGID = #{record.orgid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.depid != null" >
+        DEPID = #{record.depid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.prphone != null" >
+        PRPHONE_ = #{record.prphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.propen != null" >
+        PROPEN = #{record.propen,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sys_user
+    set ID_ = #{record.id,jdbcType=DECIMAL},
+      ADDRESS_ = #{record.address,jdbcType=VARCHAR},
+      EMAIL_ = #{record.email,jdbcType=VARCHAR},
+      ENABLED_ = #{record.enabled,jdbcType=DECIMAL},
+      EXPIRED_ = #{record.expired,jdbcType=DECIMAL},
+      LOCKED_ = #{record.locked,jdbcType=DECIMAL},
+      PASSWORD_ = #{record.password,jdbcType=VARCHAR},
+      PHONE_ = #{record.phone,jdbcType=VARCHAR},
+      REALNAME_ = #{record.realname,jdbcType=VARCHAR},
+      USERNAME_ = #{record.username,jdbcType=VARCHAR},
+      USERTYPE_ = #{record.usertype,jdbcType=DECIMAL},
+      ORGID = #{record.orgid,jdbcType=DECIMAL},
+      DEPID = #{record.depid,jdbcType=DECIMAL},
+      PRPHONE_ = #{record.prphone,jdbcType=VARCHAR},
+      PROPEN = #{record.propen,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.zzd.pojo.SysUser" >
+    update sys_user
+    <set >
+      <if test="address != null" >
+        ADDRESS_ = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        EMAIL_ = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null" >
+        ENABLED_ = #{enabled,jdbcType=DECIMAL},
+      </if>
+      <if test="expired != null" >
+        EXPIRED_ = #{expired,jdbcType=DECIMAL},
+      </if>
+      <if test="locked != null" >
+        LOCKED_ = #{locked,jdbcType=DECIMAL},
+      </if>
+      <if test="password != null" >
+        PASSWORD_ = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        PHONE_ = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="realname != null" >
+        REALNAME_ = #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        USERNAME_ = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="usertype != null" >
+        USERTYPE_ = #{usertype,jdbcType=DECIMAL},
+      </if>
+      <if test="orgid != null" >
+        ORGID = #{orgid,jdbcType=DECIMAL},
+      </if>
+      <if test="depid != null" >
+        DEPID = #{depid,jdbcType=DECIMAL},
+      </if>
+      <if test="prphone != null" >
+        PRPHONE_ = #{prphone,jdbcType=VARCHAR},
+      </if>
+      <if test="propen != null" >
+        PROPEN = #{propen,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID_ = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.zzd.pojo.SysUser" >
+    update sys_user
+    set ADDRESS_ = #{address,jdbcType=VARCHAR},
+      EMAIL_ = #{email,jdbcType=VARCHAR},
+      ENABLED_ = #{enabled,jdbcType=DECIMAL},
+      EXPIRED_ = #{expired,jdbcType=DECIMAL},
+      LOCKED_ = #{locked,jdbcType=DECIMAL},
+      PASSWORD_ = #{password,jdbcType=VARCHAR},
+      PHONE_ = #{phone,jdbcType=VARCHAR},
+      REALNAME_ = #{realname,jdbcType=VARCHAR},
+      USERNAME_ = #{username,jdbcType=VARCHAR},
+      USERTYPE_ = #{usertype,jdbcType=DECIMAL},
+      ORGID = #{orgid,jdbcType=DECIMAL},
+      DEPID = #{depid,jdbcType=DECIMAL},
+      PRPHONE_ = #{prphone,jdbcType=VARCHAR},
+      PROPEN = #{propen,jdbcType=VARCHAR}
+    where ID_ = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

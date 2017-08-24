@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.zzd.mapper.SysRoleResourceMapper" >
+  <resultMap id="BaseResultMap" type="org.zzd.pojo.SysRoleResource" >
+    <id column="RESOURCE_ID_" property="resourceId" jdbcType="DECIMAL" />
+    <id column="ROLE_ID_" property="roleId" jdbcType="DECIMAL" />
+    <result column="CHECKED" property="checked" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    RESOURCE_ID_, ROLE_ID_, CHECKED
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.zzd.pojo.SysRoleResourceExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_role_resource
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="org.zzd.pojo.SysRoleResourceKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_role_resource
+    where RESOURCE_ID_ = #{resourceId,jdbcType=DECIMAL}
+      and ROLE_ID_ = #{roleId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="org.zzd.pojo.SysRoleResourceKey" >
+    delete from sys_role_resource
+    where RESOURCE_ID_ = #{resourceId,jdbcType=DECIMAL}
+      and ROLE_ID_ = #{roleId,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.zzd.pojo.SysRoleResourceExample" >
+    delete from sys_role_resource
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.zzd.pojo.SysRoleResource" >
+    insert into sys_role_resource (RESOURCE_ID_, ROLE_ID_, CHECKED
+      )
+    values (#{resourceId,jdbcType=DECIMAL}, #{roleId,jdbcType=DECIMAL}, #{checked,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.zzd.pojo.SysRoleResource" >
+    insert into sys_role_resource
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="resourceId != null" >
+        RESOURCE_ID_,
+      </if>
+      <if test="roleId != null" >
+        ROLE_ID_,
+      </if>
+      <if test="checked != null" >
+        CHECKED,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="resourceId != null" >
+        #{resourceId,jdbcType=DECIMAL},
+      </if>
+      <if test="roleId != null" >
+        #{roleId,jdbcType=DECIMAL},
+      </if>
+      <if test="checked != null" >
+        #{checked,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.zzd.pojo.SysRoleResourceExample" resultType="java.lang.Integer" >
+    select count(*) from sys_role_resource
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sys_role_resource
+    <set >
+      <if test="record.resourceId != null" >
+        RESOURCE_ID_ = #{record.resourceId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.roleId != null" >
+        ROLE_ID_ = #{record.roleId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.checked != null" >
+        CHECKED = #{record.checked,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sys_role_resource
+    set RESOURCE_ID_ = #{record.resourceId,jdbcType=DECIMAL},
+      ROLE_ID_ = #{record.roleId,jdbcType=DECIMAL},
+      CHECKED = #{record.checked,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.zzd.pojo.SysRoleResource" >
+    update sys_role_resource
+    <set >
+      <if test="checked != null" >
+        CHECKED = #{checked,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where RESOURCE_ID_ = #{resourceId,jdbcType=DECIMAL}
+      and ROLE_ID_ = #{roleId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.zzd.pojo.SysRoleResource" >
+    update sys_role_resource
+    set CHECKED = #{checked,jdbcType=DECIMAL}
+    where RESOURCE_ID_ = #{resourceId,jdbcType=DECIMAL}
+      and ROLE_ID_ = #{roleId,jdbcType=DECIMAL}
+  </update>
+</mapper>

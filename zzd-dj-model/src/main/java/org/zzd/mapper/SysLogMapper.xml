@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.zzd.mapper.SysLogMapper" >
+  <resultMap id="BaseResultMap" type="org.zzd.pojo.SysLog" >
+    <id column="ID_" property="id" jdbcType="DECIMAL" />
+    <result column="IP_" property="ip" jdbcType="VARCHAR" />
+    <result column="LOGIN_TIME_" property="loginTime" jdbcType="TIMESTAMP" />
+    <result column="MAC_" property="mac" jdbcType="VARCHAR" />
+    <result column="USER_ID_" property="userId" jdbcType="DECIMAL" />
+    <result column="USERNAME_" property="username" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID_, IP_, LOGIN_TIME_, MAC_, USER_ID_, USERNAME_
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.zzd.pojo.SysLogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_log
+    where ID_ = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sys_log
+    where ID_ = #{id,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.zzd.pojo.SysLogExample" >
+    delete from sys_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.zzd.pojo.SysLog" >
+    insert into sys_log (ID_, IP_, LOGIN_TIME_, 
+      MAC_, USER_ID_, USERNAME_
+      )
+    values (#{id,jdbcType=DECIMAL}, #{ip,jdbcType=VARCHAR}, #{loginTime,jdbcType=TIMESTAMP}, 
+      #{mac,jdbcType=VARCHAR}, #{userId,jdbcType=DECIMAL}, #{username,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.zzd.pojo.SysLog" >
+    insert into sys_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID_,
+      </if>
+      <if test="ip != null" >
+        IP_,
+      </if>
+      <if test="loginTime != null" >
+        LOGIN_TIME_,
+      </if>
+      <if test="mac != null" >
+        MAC_,
+      </if>
+      <if test="userId != null" >
+        USER_ID_,
+      </if>
+      <if test="username != null" >
+        USERNAME_,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="ip != null" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="loginTime != null" >
+        #{loginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mac != null" >
+        #{mac,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.zzd.pojo.SysLogExample" resultType="java.lang.Integer" >
+    select count(*) from sys_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sys_log
+    <set >
+      <if test="record.id != null" >
+        ID_ = #{record.id,jdbcType=DECIMAL},
+      </if>
+      <if test="record.ip != null" >
+        IP_ = #{record.ip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loginTime != null" >
+        LOGIN_TIME_ = #{record.loginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.mac != null" >
+        MAC_ = #{record.mac,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null" >
+        USER_ID_ = #{record.userId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.username != null" >
+        USERNAME_ = #{record.username,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sys_log
+    set ID_ = #{record.id,jdbcType=DECIMAL},
+      IP_ = #{record.ip,jdbcType=VARCHAR},
+      LOGIN_TIME_ = #{record.loginTime,jdbcType=TIMESTAMP},
+      MAC_ = #{record.mac,jdbcType=VARCHAR},
+      USER_ID_ = #{record.userId,jdbcType=DECIMAL},
+      USERNAME_ = #{record.username,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.zzd.pojo.SysLog" >
+    update sys_log
+    <set >
+      <if test="ip != null" >
+        IP_ = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="loginTime != null" >
+        LOGIN_TIME_ = #{loginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mac != null" >
+        MAC_ = #{mac,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        USER_ID_ = #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="username != null" >
+        USERNAME_ = #{username,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID_ = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.zzd.pojo.SysLog" >
+    update sys_log
+    set IP_ = #{ip,jdbcType=VARCHAR},
+      LOGIN_TIME_ = #{loginTime,jdbcType=TIMESTAMP},
+      MAC_ = #{mac,jdbcType=VARCHAR},
+      USER_ID_ = #{userId,jdbcType=DECIMAL},
+      USERNAME_ = #{username,jdbcType=VARCHAR}
+    where ID_ = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

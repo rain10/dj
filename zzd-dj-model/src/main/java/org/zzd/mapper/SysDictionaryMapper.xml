@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.zzd.mapper.SysDictionaryMapper" >
+  <resultMap id="BaseResultMap" type="org.zzd.pojo.SysDictionary" >
+    <id column="TYPE_" property="type" jdbcType="VARCHAR" />
+    <id column="VALUE_" property="value" jdbcType="VARCHAR" />
+    <result column="NAME_" property="name" jdbcType="VARCHAR" />
+    <result column="DISPLAY_" property="display" jdbcType="VARCHAR" />
+    <result column="ENABLED_" property="enabled" jdbcType="INTEGER" />
+    <result column="SORT_" property="sort" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    TYPE_, VALUE_, NAME_, DISPLAY_, ENABLED_, SORT_
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.zzd.pojo.SysDictionaryExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_dictionary
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="org.zzd.pojo.SysDictionaryKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_dictionary
+    where TYPE_ = #{type,jdbcType=VARCHAR}
+      and VALUE_ = #{value,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="org.zzd.pojo.SysDictionaryKey" >
+    delete from sys_dictionary
+    where TYPE_ = #{type,jdbcType=VARCHAR}
+      and VALUE_ = #{value,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.zzd.pojo.SysDictionaryExample" >
+    delete from sys_dictionary
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.zzd.pojo.SysDictionary" >
+    insert into sys_dictionary (TYPE_, VALUE_, NAME_, 
+      DISPLAY_, ENABLED_, SORT_
+      )
+    values (#{type,jdbcType=VARCHAR}, #{value,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{display,jdbcType=VARCHAR}, #{enabled,jdbcType=INTEGER}, #{sort,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.zzd.pojo.SysDictionary" >
+    insert into sys_dictionary
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="type != null" >
+        TYPE_,
+      </if>
+      <if test="value != null" >
+        VALUE_,
+      </if>
+      <if test="name != null" >
+        NAME_,
+      </if>
+      <if test="display != null" >
+        DISPLAY_,
+      </if>
+      <if test="enabled != null" >
+        ENABLED_,
+      </if>
+      <if test="sort != null" >
+        SORT_,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="value != null" >
+        #{value,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="display != null" >
+        #{display,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null" >
+        #{enabled,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.zzd.pojo.SysDictionaryExample" resultType="java.lang.Integer" >
+    select count(*) from sys_dictionary
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sys_dictionary
+    <set >
+      <if test="record.type != null" >
+        TYPE_ = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.value != null" >
+        VALUE_ = #{record.value,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        NAME_ = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.display != null" >
+        DISPLAY_ = #{record.display,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enabled != null" >
+        ENABLED_ = #{record.enabled,jdbcType=INTEGER},
+      </if>
+      <if test="record.sort != null" >
+        SORT_ = #{record.sort,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sys_dictionary
+    set TYPE_ = #{record.type,jdbcType=VARCHAR},
+      VALUE_ = #{record.value,jdbcType=VARCHAR},
+      NAME_ = #{record.name,jdbcType=VARCHAR},
+      DISPLAY_ = #{record.display,jdbcType=VARCHAR},
+      ENABLED_ = #{record.enabled,jdbcType=INTEGER},
+      SORT_ = #{record.sort,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.zzd.pojo.SysDictionary" >
+    update sys_dictionary
+    <set >
+      <if test="name != null" >
+        NAME_ = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="display != null" >
+        DISPLAY_ = #{display,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null" >
+        ENABLED_ = #{enabled,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null" >
+        SORT_ = #{sort,jdbcType=INTEGER},
+      </if>
+    </set>
+    where TYPE_ = #{type,jdbcType=VARCHAR}
+      and VALUE_ = #{value,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.zzd.pojo.SysDictionary" >
+    update sys_dictionary
+    set NAME_ = #{name,jdbcType=VARCHAR},
+      DISPLAY_ = #{display,jdbcType=VARCHAR},
+      ENABLED_ = #{enabled,jdbcType=INTEGER},
+      SORT_ = #{sort,jdbcType=INTEGER}
+    where TYPE_ = #{type,jdbcType=VARCHAR}
+      and VALUE_ = #{value,jdbcType=VARCHAR}
+  </update>
+</mapper>

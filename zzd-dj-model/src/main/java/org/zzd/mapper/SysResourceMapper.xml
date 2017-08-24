@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.zzd.mapper.SysResourceMapper" >
+  <resultMap id="BaseResultMap" type="org.zzd.pojo.SysResource" >
+    <id column="ID_" property="id" jdbcType="DECIMAL" />
+    <result column="AUTHOR_" property="author" jdbcType="VARCHAR" />
+    <result column="ENABLED_" property="enabled" jdbcType="DECIMAL" />
+    <result column="ICON_" property="icon" jdbcType="VARCHAR" />
+    <result column="NAME_" property="name" jdbcType="VARCHAR" />
+    <result column="PID_" property="pid" jdbcType="DECIMAL" />
+    <result column="SORT_" property="sort" jdbcType="DECIMAL" />
+    <result column="TARGET_" property="target" jdbcType="VARCHAR" />
+    <result column="TITLE_" property="title" jdbcType="VARCHAR" />
+    <result column="TYPE_" property="type" jdbcType="VARCHAR" />
+    <result column="AUTHORIZATION_" property="authorization" jdbcType="DECIMAL" />
+    <result column="HAVEMUNE_" property="havemune" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID_, AUTHOR_, ENABLED_, ICON_, NAME_, PID_, SORT_, TARGET_, TITLE_, TYPE_, AUTHORIZATION_, 
+    HAVEMUNE_
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.zzd.pojo.SysResourceExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_resource
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_resource
+    where ID_ = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sys_resource
+    where ID_ = #{id,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.zzd.pojo.SysResourceExample" >
+    delete from sys_resource
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.zzd.pojo.SysResource" >
+    insert into sys_resource (ID_, AUTHOR_, ENABLED_, 
+      ICON_, NAME_, PID_, SORT_, 
+      TARGET_, TITLE_, TYPE_, 
+      AUTHORIZATION_, HAVEMUNE_)
+    values (#{id,jdbcType=DECIMAL}, #{author,jdbcType=VARCHAR}, #{enabled,jdbcType=DECIMAL}, 
+      #{icon,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{pid,jdbcType=DECIMAL}, #{sort,jdbcType=DECIMAL}, 
+      #{target,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{authorization,jdbcType=DECIMAL}, #{havemune,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="org.zzd.pojo.SysResource" >
+    insert into sys_resource
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID_,
+      </if>
+      <if test="author != null" >
+        AUTHOR_,
+      </if>
+      <if test="enabled != null" >
+        ENABLED_,
+      </if>
+      <if test="icon != null" >
+        ICON_,
+      </if>
+      <if test="name != null" >
+        NAME_,
+      </if>
+      <if test="pid != null" >
+        PID_,
+      </if>
+      <if test="sort != null" >
+        SORT_,
+      </if>
+      <if test="target != null" >
+        TARGET_,
+      </if>
+      <if test="title != null" >
+        TITLE_,
+      </if>
+      <if test="type != null" >
+        TYPE_,
+      </if>
+      <if test="authorization != null" >
+        AUTHORIZATION_,
+      </if>
+      <if test="havemune != null" >
+        HAVEMUNE_,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="author != null" >
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null" >
+        #{enabled,jdbcType=DECIMAL},
+      </if>
+      <if test="icon != null" >
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=DECIMAL},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=DECIMAL},
+      </if>
+      <if test="target != null" >
+        #{target,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="authorization != null" >
+        #{authorization,jdbcType=DECIMAL},
+      </if>
+      <if test="havemune != null" >
+        #{havemune,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.zzd.pojo.SysResourceExample" resultType="java.lang.Integer" >
+    select count(*) from sys_resource
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sys_resource
+    <set >
+      <if test="record.id != null" >
+        ID_ = #{record.id,jdbcType=DECIMAL},
+      </if>
+      <if test="record.author != null" >
+        AUTHOR_ = #{record.author,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enabled != null" >
+        ENABLED_ = #{record.enabled,jdbcType=DECIMAL},
+      </if>
+      <if test="record.icon != null" >
+        ICON_ = #{record.icon,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        NAME_ = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pid != null" >
+        PID_ = #{record.pid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.sort != null" >
+        SORT_ = #{record.sort,jdbcType=DECIMAL},
+      </if>
+      <if test="record.target != null" >
+        TARGET_ = #{record.target,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null" >
+        TITLE_ = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null" >
+        TYPE_ = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.authorization != null" >
+        AUTHORIZATION_ = #{record.authorization,jdbcType=DECIMAL},
+      </if>
+      <if test="record.havemune != null" >
+        HAVEMUNE_ = #{record.havemune,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sys_resource
+    set ID_ = #{record.id,jdbcType=DECIMAL},
+      AUTHOR_ = #{record.author,jdbcType=VARCHAR},
+      ENABLED_ = #{record.enabled,jdbcType=DECIMAL},
+      ICON_ = #{record.icon,jdbcType=VARCHAR},
+      NAME_ = #{record.name,jdbcType=VARCHAR},
+      PID_ = #{record.pid,jdbcType=DECIMAL},
+      SORT_ = #{record.sort,jdbcType=DECIMAL},
+      TARGET_ = #{record.target,jdbcType=VARCHAR},
+      TITLE_ = #{record.title,jdbcType=VARCHAR},
+      TYPE_ = #{record.type,jdbcType=VARCHAR},
+      AUTHORIZATION_ = #{record.authorization,jdbcType=DECIMAL},
+      HAVEMUNE_ = #{record.havemune,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.zzd.pojo.SysResource" >
+    update sys_resource
+    <set >
+      <if test="author != null" >
+        AUTHOR_ = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null" >
+        ENABLED_ = #{enabled,jdbcType=DECIMAL},
+      </if>
+      <if test="icon != null" >
+        ICON_ = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        NAME_ = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null" >
+        PID_ = #{pid,jdbcType=DECIMAL},
+      </if>
+      <if test="sort != null" >
+        SORT_ = #{sort,jdbcType=DECIMAL},
+      </if>
+      <if test="target != null" >
+        TARGET_ = #{target,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        TITLE_ = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        TYPE_ = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="authorization != null" >
+        AUTHORIZATION_ = #{authorization,jdbcType=DECIMAL},
+      </if>
+      <if test="havemune != null" >
+        HAVEMUNE_ = #{havemune,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID_ = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.zzd.pojo.SysResource" >
+    update sys_resource
+    set AUTHOR_ = #{author,jdbcType=VARCHAR},
+      ENABLED_ = #{enabled,jdbcType=DECIMAL},
+      ICON_ = #{icon,jdbcType=VARCHAR},
+      NAME_ = #{name,jdbcType=VARCHAR},
+      PID_ = #{pid,jdbcType=DECIMAL},
+      SORT_ = #{sort,jdbcType=DECIMAL},
+      TARGET_ = #{target,jdbcType=VARCHAR},
+      TITLE_ = #{title,jdbcType=VARCHAR},
+      TYPE_ = #{type,jdbcType=VARCHAR},
+      AUTHORIZATION_ = #{authorization,jdbcType=DECIMAL},
+      HAVEMUNE_ = #{havemune,jdbcType=DECIMAL}
+    where ID_ = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>
